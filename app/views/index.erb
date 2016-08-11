@@ -3,12 +3,14 @@
 <% if @search %>
 <table class="table">
   <thead>
-    <th>Name</th>
-    <th>Seller</th>
+    <th>Pokeman for Sale</th>
+    <th>I'm looking for</th>
+    <th>Price</th>
   </thead>
   <% @search.each do |listing|%>
     <td><%= listing.pokemon.name %></td>
-    <td><%= listing.user.username %></td>
+    <td><%= (pt = listing.pokemon_trade) ? pt.name : nil %></td>
+    <td><%= listing.price %></td>
   <% end %>
 </table>
 <% end %>
