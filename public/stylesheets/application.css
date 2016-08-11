@@ -1,3 +1,24 @@
 .wrapper{
 max-width: 1024px;
 }
+.thumbail-wrapper img{
+ object-fit: contain;
+ height: 100%;
+ width: 100%;
+}
+
+.thumbail-wrapper{
+  height:100px;
+}
+
+.col-pokedex {
+  width: 10%;
+  padding: 0px 5px;
+}
+.thumbnail {
+  margin-bottom: 10px;
+}
+.caption{
+  text-align: center;
+  padding: 0px;
+}
