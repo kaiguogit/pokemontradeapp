@@ -16,6 +16,7 @@ GEM
       tzinfo (~> 1.1)
     arel (6.0.3)
     backports (3.6.7)
+    bcrypt (3.1.11)
     bond (0.5.1)
     builder (3.2.2)
     coderay (1.1.0)
@@ -31,6 +32,8 @@ GEM
       slop (~> 3.4)
     puma (2.15.3)
     rack (1.6.4)
+    rack-flash3 (1.0.5)
+      rack
     rack-protection (1.5.3)
       rack
     rack-test (0.6.3)
@@ -77,9 +80,11 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport
+  bcrypt
   pg
   pry
   puma
+  rack-flash3
   rake
   shotgun
   sinatra
@@ -89,4 +94,4 @@ DEPENDENCIES
   tux
 
 BUNDLED WITH
-   1.12.1
+   1.12.5
