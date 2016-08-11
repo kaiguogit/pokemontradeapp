@@ -1,1 +1,16 @@
 <h1>Home Page</h1>
+
+
+ <form method="post" action="/login">
+            <label for="username">Username: </label>
+            <input type="text" name="username">
+            <label for="password">Password: </label>
+            <input type="password" name="password">  
+            <footer>
+              <button type="submit" class="btn btn-primary">Login</button>
+              <!-- <a href = "/users/register" class="btn btn-primary"> Register </a> -->
+            </footer>
+  </form>
+  <%= flash[:notice] %>
+  <a href = "/logout" class="btn btn-primary"> Logout </a>
+
