@@ -1,7 +1,3 @@
-User.destroy_all
-Listing.destroy_all
-Pokemon.destroy_all
-
 u = User.create(username: 'test', email: "test@email.com")
 u.password = 'test'
 u.save
@@ -23,3 +19,7 @@ l.pokemon = Pokemon.last
 l.pokemon_trade = Pokemon.first
 l.price = 2000
 l.save
+
+CSV.open('./db/pokemon_names.csv').each do |row|
+  Species.create(name: row[1])
+end

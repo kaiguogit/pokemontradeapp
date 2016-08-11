@@ -14,7 +14,7 @@
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
       <ul class="nav navbar-nav">
-        <li><a href="/podex">Podex</a></li>
+        <li><a href="/pokedex">Pokedex</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <span><%= session[:user_id] ? "Logged in as #{User.find(session[:user_id]).username}.  " : "Not logged in.  " %></span>

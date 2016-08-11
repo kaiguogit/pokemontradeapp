@@ -38,6 +38,6 @@ get '/search' do
   erb :'listings/index', locals: {keyword: params[:keyword], show_all: "false"}
 end
 
-get '/podex' do
-  erb :'/pokemons/podex'
+get '/pokedex' do
+  erb :'pokemons/pokedex'
 end

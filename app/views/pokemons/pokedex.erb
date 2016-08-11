@@ -1,0 +1,16 @@
+<div class="container wrapper">
+  <!-- <div class="row"> -->
+  <% Species.all.each do |s|%>
+    <div class="col-md-3">
+      <div class="thumbnail">
+        <img src="<%= s.image_url %>" alt="<%= s.name %>">
+        <div class="caption">
+          <h3><%= s.name%></h3>
+          <!-- <p>...</p> -->
+          <p><a href="#" class="btn btn-primary" role="button">Sell</a> <a href="#" class="btn btn-default" role="button">Edit</a></p>
+        </div>
+      </div>
+    </div>
+  <% end%>
+  <!-- </div> -->
+</div>
