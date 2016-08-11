@@ -4,16 +4,31 @@ configure :development do
 end
 
 configure :development, :test do
-  set :database, {
-    'development' => {
-      'adapter' => 'sqlite3',
-      'database' => APP_ROOT.join('db', 'development.sqlite3')
-    },
-    'test' => {
-      'adapter' => 'sqlite3',
-      'database' => APP_ROOT.join('db', 'test.sqlite3')
-    }
-  }
+  # set :database, {
+  #   'development' => {
+  #     'adapter' => 'sqlite3',
+  #     'database' => APP_ROOT.join('db', 'development.sqlite3')
+  #   },
+  #   'test' => {
+  #     'adapter' => 'sqlite3',
+  #     'database' => APP_ROOT.join('db', 'test.sqlite3')
+  #   }
+  # }
+  # db = URI.parse(ENV['DATABASE_URL'] || 'postgres://localhost/mydb')
+
+  ActiveRecord::Base.establish_connection(
+      :adapter => 'postgresql',
+      # :host     => 'localhost',
+      # :username => 'development',
+      # :password => 'development',
+      # :database => 'pokemontradeapp',
+      :host     => 'ec2-54-243-54-56.compute-1.amazonaws.com',
+      :username => 'pyvghtrvcebxnb',
+      :password => 'Zna3ItnXeCAJa0h2qXTSDUn38U',
+      :database => 'd67be7i3k94hmh',
+      :encoding => 'utf8'
+  )
+
 end
 
 configure :production do
