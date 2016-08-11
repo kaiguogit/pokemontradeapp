@@ -30,9 +30,8 @@ get '/profile' do
 end
 
 post '/search' do
-  @search = Listing.joins(:pokemon).where("pokemons.name ILIKE '%#{params[:keyword]}%'")
-  erb :index
-    # redirect '/'
+  flash[:keyword] = params[:keyword]
+  redirect '/'
 end
 
 get '/podex' do
