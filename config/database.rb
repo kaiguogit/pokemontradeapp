@@ -18,14 +18,14 @@ configure :development, :test do
 
   ActiveRecord::Base.establish_connection(
       :adapter => 'postgresql',
-      # :host     => 'localhost',
-      # :username => 'development',
-      # :password => 'development',
-      # :database => 'pokemontradeapp',
-      :host     => 'ec2-54-243-54-56.compute-1.amazonaws.com',
-      :username => 'pyvghtrvcebxnb',
-      :password => 'Zna3ItnXeCAJa0h2qXTSDUn38U',
-      :database => 'd67be7i3k94hmh',
+      :host     => 'localhost',
+      :username => 'development',
+      :password => 'development',
+      :database => 'pokemontradeapp',
+      # :host     => 'ec2-54-243-54-56.compute-1.amazonaws.com',
+      # :username => 'pyvghtrvcebxnb',
+      # :password => 'Zna3ItnXeCAJa0h2qXTSDUn38U',
+      # :database => 'd67be7i3k94hmh',
       :encoding => 'utf8'
   )
 
