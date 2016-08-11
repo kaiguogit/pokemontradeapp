@@ -7,6 +7,7 @@ post '/login' do
   user = User.find_by(username: params[:username])
   if user.password == params[:password]
     session[:user_id] = user.id
+    @username = user.username
     redirect '/profile'
   else
     flash[:notice] = "Username or password you entered is not correct."
@@ -26,4 +27,14 @@ get '/profile' do
   else
     redirect '/'
   end
+end
+
+post '/search' do
+  @search = Listing.joins(:pokemon).where("pokemons.name ILIKE '%#{params[:keyword]}%'")
+  erb :index
+    # redirect '/'
+end
+
+get '/podex' do
+  erb :'/pokemons/podex'
 end
