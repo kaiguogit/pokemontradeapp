@@ -1,24 +1,2 @@
-
-
-<% if @search = Listing.joins(:pokemon).where("pokemons.name ILIKE '%#{flash[:keyword]}%'")%>
-  <% listings = @search %>
-<% else %>
-  <% listings = Listing.all %>
-<% end %>
-<table class="table">
-  <thead>
-    <th>Pokeman for Sale</th>
-    <th>I'm looking for</th>
-    <th>Price</th>
-  </thead>
-  <% listings.each do |listing|%>
-    <tr>
-    <% p = listing.pokemon %>
-    <% pt = listing.pokemon_trade %>
-    <td><img src="<%= p.image_url %>"><%= p.name %></td>
-    <td><%= pt ? "<img src=\"#{pt.image_url}\">" : nil %><%= pt ? pt.name : nil %></td>
-    <td><%= pt ? (listing.price / 100.00).round(2) : 0 %>$</td>
-    </tr>
-  <% end %>
-</table>
+<%= erb :'/listings/index', locals: {keyword: "", show_all: true}%>
 

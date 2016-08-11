@@ -30,8 +30,12 @@ get '/profile' do
 end
 
 post '/search' do
-  flash[:keyword] = params[:keyword]
-  redirect '/'
+  # flash[:keyword] = params[:keyword]
+  redirect "/search?keyword=#{params[:keyword]}"
+end
+
+get '/search' do
+  erb :'listings/index', locals: {keyword: params[:keyword], show_all: "false"}
 end
 
 get '/podex' do
