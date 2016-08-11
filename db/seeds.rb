@@ -24,3 +24,5 @@ l.pokemon = Pokemon.last
 l.pokemon_trade = Pokemon.first
 l.price = 2000
 l.save
+
+

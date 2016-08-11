@@ -41,3 +41,11 @@ end
 get '/pokedex' do
   erb :'pokemons/pokedex'
 end
+
+post '/profile/add_pokemon' do
+  # @new_pokemon = Pokemon.new (name: params[:name], cp: params[:cp],)
+end 
+
+post '/profile/wish_list' do
+
+end 
