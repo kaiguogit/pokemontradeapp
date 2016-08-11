@@ -1,0 +1,15 @@
+development:
+  adapter: postgresql
+  host: localhost
+  username: development
+  password: development
+  database: pokemontradeapp
+  encoding: UTF8
+
+test:
+  adapter: postgresql
+  host: localhost
+  username: development
+  password: development
+  database: pokemontradeapp        # or whatever the name is
+  encoding: UTF8
