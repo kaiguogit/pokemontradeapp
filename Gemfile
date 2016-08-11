@@ -13,6 +13,8 @@ gem 'tux'
 
 gem 'pg'
 
+gem 'bcrypt'
+
 # These gems are only installed when run as `bundle install --without production`
 group :development, :test do
   gem 'pry'
