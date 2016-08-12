@@ -3,6 +3,14 @@ CSV.open('./db/pokemon_names.csv').each do |row|
   Species.create(name: row[1])
 end
 
+CSV.open('./db/charge_moves.csv').each do |row|
+  Move.create(name: row[0], move_type: 'charge_move')
+end
+
+CSV.open('./db/quick_moves.csv').each do |row|
+  Move.create(name: row[0], move_type: 'quick_move')
+end
+
 u = User.create(username: 'test', email: "test@email.com")
 u.password = 'test'
 u.save
@@ -24,5 +32,6 @@ l.pokemon = Pokemon.last
 l.pokemon_trade = Pokemon.first
 l.price = 2000
 l.save
+
 
 
