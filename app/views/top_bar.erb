@@ -17,21 +17,23 @@
         <li><a href="/pokedex">Pokedex</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+        <li>
         <span><%= session[:user_id] ? "Logged in as #{User.find(session[:user_id]).username}.  " : "Not logged in.  " %></span>
-        <span>   <%= flash[:notice] %></span>
-        <% if session[:user_id] %>
+        </li>
+        <% if loggedin? %>
           <a href = "/profile" class="btn btn-primary"> Profile </a>
           <a href = "/logout" class="btn btn-primary"> Logout </a>
+          <a href = "/carts/show" class="btn btn-primary"> Shopping Cart </a>
           <p></p>
         <% else %>
         <li>
           <form method="post" action="/login">
-              <span>   <%= flash[:notice] %></span>
               <label for="username">Username: </label>
               <input type="text" name="username">
               <label for="password">Password: </label>
               <input type="password" name="password">  
               <footer>
+                <span>   <%= flash[:notice] %></span>
                 <span class="nav navbar-nav navbar-right"><a href = "/logout" class="btn btn-primary"> Logout </a></span>
                 <span class="nav navbar-nav navbar-right"><button type="submit" class="btn btn-primary">Login</button></span>
                 <!-- <a href = "/users/register" class="btn btn-primary"> Register </a> -->
@@ -39,7 +41,6 @@
           </form>
         </li>
         <% end %>
-        <%= flash[:notice] %>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

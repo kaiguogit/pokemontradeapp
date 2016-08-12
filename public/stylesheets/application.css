@@ -22,3 +22,13 @@ max-width: 1024px;
   text-align: center;
   padding: 0px;
 }
+
+.listing-table-td{
+  height: 50px;
+}
+.listing-table-td img{
+  height: 100%;
+}
+body{
+  background: #fff url("http://assets.pokemon.com/static2/_ui/img/chrome/container_bg.png");
+}

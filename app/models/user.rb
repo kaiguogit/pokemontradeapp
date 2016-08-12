@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   include BCrypt
 
   has_many :pokemons
+  has_one :cart
 
   def password
     @password ||= Password.new(password_hash)

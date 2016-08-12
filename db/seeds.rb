@@ -11,13 +11,17 @@ CSV.open('./db/quick_moves.csv').each do |row|
   Move.create(name: row[0], move_type: 'quick_move')
 end
 
+
+#create user
 u = User.create(username: 'test', email: "test@email.com")
+
+#create a cart for user
+u.cart = Cart.create
 u.password = 'test'
 u.save
 
 u.pokemons.create(name:"Pikachu", cp: 100, species: Species.find_by(name: 'Pikachu'))
 u.pokemons.create(name:"Wartortle", cp: 50, species: Species.find_by(name: 'Wartortle'))
-
 
 
 l =  Listing.new
