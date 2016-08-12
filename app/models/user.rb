@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
 
   has_many :pokemons
   has_one :cart
+  has_one :user_wish_list 
 
   def password
     @password ||= Password.new(password_hash)

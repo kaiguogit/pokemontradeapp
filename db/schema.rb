@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160812143504) do
+ActiveRecord::Schema.define(version: 20160812192843) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,10 +53,17 @@ ActiveRecord::Schema.define(version: 20160812143504) do
     t.integer  "quick_move_id"
     t.integer  "charge_move_id"
     t.integer  "wishlist_id"
+    t.integer  "user_wish_list_id"
   end
 
   create_table "species", force: :cascade do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_wish_lists", force: :cascade do |t|
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -67,6 +74,7 @@ ActiveRecord::Schema.define(version: 20160812143504) do
     t.string   "password_hash"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_wish_list_id"
   end
 
   create_table "wishlists", force: :cascade do |t|

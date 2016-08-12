@@ -1,19 +1,39 @@
+
 <% user = User.find(session[:user_id])%>
-<div class="panel panel-default panel-primary">
-  <div class="panel-heading">Your pokemons</div>
+
+<div class="panel panel-default col-md-10 col-md-offset-1">
+
+  <div>
+    <ul class="nav nav-pills nav-justified">
+      <li role='presentation' class='active'><a href="/profile">Your Pokemons</a></li>
+      <li role='presentation'><a href="/profile/tradelist">Trade List</a></li>
+      <li role='presentation'><a href="/profile/wishlist">Wish List</a></li>
+    </ul>
+  </div>
+
   <div class="panel-body">
     <div class="row">
       <% user.pokemons.each do |pokemon|%>
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-              <img src="<%= pokemon.image_url %>" alt="<%= pokemon.name %>">
-              <div class="caption">
-                <h3><%= pokemon.name%></h3>
-                <!-- <p>...</p> -->
-                <p><a href="#" class="btn btn-primary" role="button">Sell</a> <a href="#" class="btn btn-default" role="button">Edit</a></p>
+        <div class="col-md-2 col-pokedex">
+          <div class="thumbnail">
+            <div class= "thumbnail-wrapper">
+              <img src="<%= pokemon.image_url %>" alt="<%= pokemon.name %>" >
+            </div>
+
+            <div class="notch-collectibles-small thumbnail-actions">
+              <div class="collectibles-wrapper" data-collectibles-slug="bulbasaur" data-slug="bulbasaur">   
+                <!--buttons-->
+                <a href="pokemon/add/<%= pokemon.id %>"><span class='glyphicon glyphicon-transfer'></span></a>
+                <a href="link to add wishlist page"><span class='glyphicon glyphicon-cog'></span></a>  
               </div>
             </div>
+
+            <div class="caption">
+              <%= pokemon.name %>
+            </div>
+          </div>
         </div>
+
       <% end %>
     </div>
   </div>

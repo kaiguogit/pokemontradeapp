@@ -7,6 +7,7 @@ class Pokemon < ActiveRecord::Base
   belongs_to :quick_move, class_name: :Move, foreign_key: :quick_move_id
   belongs_to :charge_move, class_name: :Move, foreign_key: :charge_move_id
   belongs_to :wishlist
+  belongs_to :user_wish_list 
 
   def image_url
     species.image_url

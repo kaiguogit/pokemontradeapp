@@ -49,6 +49,14 @@ get '/profile' do
   end
 end
 
+get '/profile/wishlist' do
+  erb :'users/wishlist'
+end
+
+get '/profile/tradelist' do
+  erb :'users/tradelist'
+end
+
 post '/search' do
   # flash[:keyword] = params[:keyword]
   redirect "/search?keyword=#{params[:keyword]}"
@@ -63,8 +71,13 @@ get '/pokedex' do
 end
 
 get '/pokemon/add/:id' do
-  @species = Species.find(params[:id])
-  erb :'pokemons/add'
+  if loggedin?  
+    @species = Species.find(params[:id])
+    erb :'pokemons/add'
+  else
+    flash[:message] = 'Please log in to add pokemon to your profile'
+    redirect '/pokedex'
+  end
 end
 
 post '/pokemon/add/submit' do
@@ -80,15 +93,14 @@ post '/pokemon/add/submit' do
   redirect '/pokedex'
 end 
 
-post '/pokemon/wishlist' do
-
-end
-
-
-
-post '/profile/wish_list' do
-
-end 
+  # post '/profile/wish_list/:id' do
+  #   if loggedin?
+  #     @new_pokemon = 
+  #   else
+  #     flash[:message] = 'Please log in to add pokemon to your wish list'
+  #     redirect '/pokedex'
+  #   end
+  # end 
 
 post '/listings/add_to_cart' do 
   @cart.listings << Listing.find(params[:listing_id])
