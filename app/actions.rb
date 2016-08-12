@@ -1,11 +1,27 @@
 # Homepage (Root path)
+
+before do
+  if loggedin?
+    @cart = User.find(session[:user_id]).cart
+  else
+    session[:cart_id] ||= Cart.create
+    @cart = Cart.find(session[:cart_id])
+  end
+end
+
+helpers do 
+  def loggedin?
+    session[:user_id]
+  end
+end
+
 get '/' do
   erb :index
 end
 
 post '/login' do 
   user = User.find_by(username: params[:username])
-  if user.password == params[:password]
+  if user && user.password == params[:password]
     session[:user_id] = user.id
     @username = user.username
     redirect '/profile'
@@ -42,6 +58,7 @@ get '/pokedex' do
   erb :'pokemons/pokedex'
 end
 
+
 post '/profile/add_pokemon' do
   # @new_pokemon = Pokemon.new (name: params[:name], cp: params[:cp],)
 end 
@@ -49,3 +66,18 @@ end
 post '/profile/wish_list' do
 
 end 
+
+post '/listings/add_to_cart' do 
+  @cart.listings << Listing.find(params[:listing_id])
+  redirect '/carts/show'
+end
+
+delete '/cart/listing' do
+  @cart.listings.delete(Listing.find(params[:listing_id]))
+  redirect :'/carts/show'
+end
+
+get '/carts/show' do
+  erb :'/carts/show'
+end
+
