@@ -10,9 +10,14 @@
         <div class="notch-collectibles-small thumbnail-actions">
           <div class="collectibles-wrapper" data-collectibles-slug="bulbasaur" data-slug="bulbasaur">
             <!-- <div class="collectibles-collection"><a href="#" rel="tooltip" title="Add to My Collection" data-collection="have"><span class="icon icon_collection"></span></a></div>
-            <div class="collectibles-wishlist"><a href="#" rel="tooltip" title="Add to My Wish List" data-collection="want"><span class="icon icon_wishlist"></span></a></div>   -->      
+            <div class="collectibles-wishlist"><a href="#" rel="tooltip" title="Add to My Wish List" data-collection="want"><span class="icon icon_wishlist"></span></a></div>   --> 
+
+            <!--buttons-->     
             <a href="pokemon/add/<%= s.id %>"><span class='glyphicon glyphicon-plus-sign'></span></a>
-            <a href="link to add wishlist page"><span class='glyphicon glyphicon-heart'></span></a>  
+            <form  method='post' action="pokemon/wish_list">
+              <input type="hidden" name="<%= s.id %>">
+              <button><span class='glyphicon glyphicon-heart'></span></button>
+            </form>
           </div>
         </div>
 

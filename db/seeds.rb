@@ -15,7 +15,8 @@ end
 #create user
 u = User.create(username: 'test', email: "test@email.com")
 # create user wish list for user 
-u.user_wish_list = UserWishList.create 
+u.user_wish_list = UserWishList.new 
+u.save
 
 #create a cart for user
 u.cart = Cart.create

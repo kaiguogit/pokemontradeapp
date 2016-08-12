@@ -19,9 +19,14 @@ helpers do
   end
 end
 
+# Home page
+# TODO make a real home page with nice backgound picture, and sign up form, log in, to listings, BONUS play music 
+
 get '/' do
   erb :index
 end
+
+# User log in. starts user session. 
 
 post '/login' do 
   user = User.find_by(username: params[:username])
@@ -75,7 +80,7 @@ get '/pokemon/add/:id' do
     @species = Species.find(params[:id])
     erb :'pokemons/add'
   else
-    flash[:message] = 'Please log in to add pokemon to your profile'
+    flash[:notice] = 'Please log in to add pokemon to your profile'
     redirect '/pokedex'
   end
 end
@@ -93,14 +98,20 @@ post '/pokemon/add/submit' do
   redirect '/pokedex'
 end 
 
-  # post '/profile/wish_list/:id' do
-  #   if loggedin?
-  #     @new_pokemon = 
-  #   else
-  #     flash[:message] = 'Please log in to add pokemon to your wish list'
-  #     redirect '/pokedex'
-  #   end
-  # end 
+# button from pokedex, to add to wishlist 
+
+post '/pokemon/wish_list' do
+  if loggedin?
+    pokemon = Pokemon.new
+    pokemon.user_wish_list = UserWishList.find_by(user_id: session[:user_id])
+    pokemon.species = params[:id]    
+  else
+    flash[:notice] = 'Please log in to add pokemon to your wish list'    
+  end
+  redirect '/pokedex'
+end 
+
+
 
 post '/listings/add_to_cart' do 
   @cart.listings << Listing.find(params[:listing_id])
