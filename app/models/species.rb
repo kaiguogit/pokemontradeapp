@@ -3,7 +3,7 @@ class Species < ActiveRecord::Base
 
   def image_url
     # "https://img.pokemondb.net/artwork/#{name.downcase}.jpg"
-    "http://assets.pokemon.com/assets/cms2/img/pokedex/detail/#{id_to_index(id)}.png"
+    "./images/#{id_to_index(id)}-3d.png"
   end
 
   def id_to_index(number)
