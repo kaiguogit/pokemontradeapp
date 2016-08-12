@@ -3,7 +3,10 @@ CSV.open('./db/pokemon_names.csv').each do |row|
   Species.create(name: row[1])
 end
 
+#create user
 u = User.create(username: 'test', email: "test@email.com")
+#create a cart for user
+u.cart.create
 u.password = 'test'
 u.save
 

@@ -19,6 +19,12 @@
           <td><img src="<%= p.image_url %>"><%= p.name %></td>
           <td><%= pt ? "<img src=\"#{pt.image_url}\">" : nil %><%= pt ? pt.name : nil %></td>
           <td><%= pt ? (listing.price / 100.00).round(2) : 0 %>$</td>
+          <td>
+            <form method="post" action="listings/add_to_cart">
+              <input type="hidden" name="listing_id" value=<%= listing.id %> >
+              <button class="btn btn-primary">Add to cart</button>
+            </form>
+          </td>
           </tr>
         <% end %>
       </tbody>
