@@ -5,7 +5,8 @@ before do
     @cart = User.find(session[:user_id]).cart
   else
     session[:cart_id] ||= Cart.create
-    @cart = Cart.find(session[:cart_id])
+    c = Cart.find(session[:cart_id])
+    @cart = c.nil? ? : c : Cart.create 
   end
 end
 
