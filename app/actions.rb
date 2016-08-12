@@ -1,17 +1,17 @@
 # Homepage (Root path)
 
-before do
-  if loggedin?
-    @cart = User.find(session[:user_id]).cart
-  else
-    begin
-      @cart = Cart.find(session[:cart_id])
-    rescue ActiveRecord::RecordNotFound
-      c = Cart.create
-      session[:cart_id] = c.id
-    end
-  end
-end
+# before do
+#   if loggedin?
+#     @cart = User.find(session[:user_id]).cart
+#   else
+#     begin
+#       @cart = Cart.find(session[:cart_id])
+#     rescue ActiveRecord::RecordNotFound
+#       c = Cart.create
+#       session[:cart_id] = c.id
+#     end
+#   end
+# end
 
 helpers do 
   def loggedin?
@@ -62,10 +62,29 @@ get '/pokedex' do
   erb :'pokemons/pokedex'
 end
 
+get '/pokemon/add/:id' do
+  @species = Species.find(params[:id])
+  erb :'pokemons/add'
+end
 
-post '/profile/add_pokemon' do
-  # @new_pokemon = Pokemon.new (name: params[:name], cp: params[:cp],)
+post '/pokemon/add/submit' do
+  @new_pokemon = Pokemon.new(
+    user: User.find(params[:user_id]),
+    species: Species.find(params[:species_id]), 
+    name: params[:name], 
+    cp: params[:cp], 
+    quick_move: Move.find_by(name: params[:quick_move]),
+    charge_move: Move.find_by(name: params[:charge_move]) 
+    )
+  @new_pokemon.save
+  redirect '/pokedex'
 end 
+
+post '/pokemon/wishlist' do
+
+end
+
+
 
 post '/profile/wish_list' do
 
