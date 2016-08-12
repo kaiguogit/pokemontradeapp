@@ -4,9 +4,12 @@ before do
   if loggedin?
     @cart = User.find(session[:user_id]).cart
   else
-    session[:cart_id] ||= Cart.create
-    c = Cart.find(session[:cart_id])
-    @cart = c.nil? ? c : Cart.create 
+    if session[:cart_id] || Cart.find(session[:cart_id])
+      @cart = Cart.find(session[:cart_id])
+    else
+      c = Cart.create
+      session[:cart_id] = c.id
+    end
   end
 end
 
