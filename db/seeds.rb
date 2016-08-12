@@ -26,14 +26,22 @@ u.pokemons.create(name:"Wartortle", cp: 50, species: Species.find_by(name: 'Wart
 
 l =  Listing.new
 l.pokemon = Pokemon.first
-l.pokemon_trade = Pokemon.last
+l.wishlist = Wishlist.create
+l.wishlist.pokemons << Pokemon.create(species: Species.find(10))
+l.wishlist.pokemons << Pokemon.create(species: Species.find(151))
+l.wishlist.pokemons << Pokemon.create(species: Species.find(50))
+l.wishlist.save
 l.price = 1000
 l.save
 
 
 l =  Listing.new
 l.pokemon = Pokemon.last
-l.pokemon_trade = Pokemon.first
+l.wishlist = Wishlist.create
+l.wishlist.pokemons << Pokemon.create(species: Species.find(33))
+l.wishlist.pokemons << Pokemon.create(species: Species.find(48))
+l.wishlist.pokemons << Pokemon.create(species: Species.find(77))
+l.wishlist.save
 l.price = 2000
 l.save
 
