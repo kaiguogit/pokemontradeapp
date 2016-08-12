@@ -5,7 +5,7 @@
   <% end %>
 
   <% if search.any? %>
-    <table class="table">
+    <table class="table listing-table">
       <thead>
         <th>Pokeman for Sale</th>
         <th>I'm looking for</th>
@@ -16,14 +16,16 @@
           <tr>
           <% p = listing.pokemon %>
           <% pt = listing.pokemon_trade %>
-          <td><img src="<%= p.image_url %>"><%= p.name %></td>
-          <td><%= pt ? "<img src=\"#{pt.image_url}\">" : nil %><%= pt ? pt.name : nil %></td>
-          <td><%= pt ? (listing.price / 100.00).round(2) : 0 %>$</td>
+          <td><div class="listing-table-td"><img src="<%= p.image_url %>"><%= p.name %></div></td>
+          <td><div class="listing-table-td"><%= pt ? "<img src=\"#{pt.image_url}\">" : nil %><%= pt ? pt.name : nil %></div></td>
+          <td><div class="listing-table-td"><%= pt ? (listing.price / 100.00).round(2) : 0 %>$</div></td>
           <td>
-            <form method="post" action="listings/add_to_cart">
-              <input type="hidden" name="listing_id" value=<%= listing.id %> >
-              <button class="btn btn-primary">Add to cart</button>
-            </form>
+            <div class="listing-table-td">
+              <form method="post" action="listings/add_to_cart">
+                <input type="hidden" name="listing_id" value=<%= listing.id %> >
+                <button class="btn btn-primary">Add to cart</button>
+              </form>
+            </div>
           </td>
           </tr>
         <% end %>
