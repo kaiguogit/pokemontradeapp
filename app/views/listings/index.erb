@@ -19,7 +19,7 @@
           <td><div class="listing-table-td"><img src="<%= p.image_url %>"><%= p.name %></div></td>
           <td><div class="listing-table-td">
             <% wl.pokemons.each do |wl_p|%>
-            <div class="col-md-3"><img src="<%= wl_p.image_url%>"></div>
+            <div class="col-md-3 listing-table-td"><img src="<%= wl_p.image_url%>"></div>
             <% end %>
           </div></td>
           <td><div class="listing-table-td"><%= listing.price ? (listing.price / 100.00).round(2) : 0 %>$</div></td>
