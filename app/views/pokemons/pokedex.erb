@@ -1,5 +1,8 @@
 <div class="container wrapper">
   <!-- <div class="row"> -->
+   <form name='wish_list_form' method='post' action="pokemon/wish_list">
+      <input id="pokemon_to_wish" type="hidden" name='id' value="">              
+    </form>
   <% Species.all.each do |s| %>
     <div class="col-md-2 col-pokedex">
       <div class="thumbnail">
@@ -14,10 +17,8 @@
 
             <!--buttons-->     
             <a href="pokemon/add/<%= s.id %>"><span class='glyphicon glyphicon-plus-sign'></span></a>
-            <form  method='post' action="pokemon/wish_list">
-              <input type="hidden" name="<%= s.id %>">
-              <button><span class='glyphicon glyphicon-heart'></span></button>
-            </form>
+            <a class="wish_list_button" data-id="<%= s.id %>" href="#"><span class='glyphicon glyphicon-heart'></span></a>   
+           
           </div>
         </div>
 

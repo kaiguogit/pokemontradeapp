@@ -104,7 +104,8 @@ post '/pokemon/wish_list' do
   if loggedin?
     pokemon = Pokemon.new
     pokemon.user_wish_list = UserWishList.find_by(user_id: session[:user_id])
-    pokemon.species = params[:id]    
+    pokemon.species = Species.find(params[:id])
+    pokemon.save   
   else
     flash[:notice] = 'Please log in to add pokemon to your wish list'    
   end
