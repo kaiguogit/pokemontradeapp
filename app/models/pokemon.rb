@@ -8,6 +8,6 @@ class Pokemon < ActiveRecord::Base
   belongs_to :charge_move, class_name: :Move, foreign_key: :charge_move_id
 
   def image_url
-    "https://img.pokemondb.net/artwork/#{species.name.downcase}.jpg"
+    species.image_url
   end
 end

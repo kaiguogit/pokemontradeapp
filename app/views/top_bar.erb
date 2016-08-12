@@ -23,7 +23,7 @@
         <% if loggedin? %>
           <a href = "/profile" class="btn btn-primary"> Profile </a>
           <a href = "/logout" class="btn btn-primary"> Logout </a>
-          <a href = "/carts/show" class="btn btn-primary"> Shopping Cart </a>
+          
           <p></p>
         <% else %>
         <li>
@@ -41,6 +41,7 @@
           </form>
         </li>
         <% end %>
+        <li><a href = "/carts/show" class="btn btn-primary"> Shopping Cart </a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

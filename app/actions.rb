@@ -4,9 +4,9 @@ before do
   if loggedin?
     @cart = User.find(session[:user_id]).cart
   else
-    if session[:cart_id] || Cart.find(session[:cart_id])
+    begin
       @cart = Cart.find(session[:cart_id])
-    else
+    rescue ActiveRecord::RecordNotFound
       c = Cart.create
       session[:cart_id] = c.id
     end

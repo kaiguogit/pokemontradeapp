@@ -3,8 +3,15 @@
   <% Species.all.each do |s|%>
     <div class="col-md-2 col-pokedex">
       <div class="thumbnail">
-        <div class= "thumbail-wrapper">
+        <div class= "thumbnail-wrapper">
           <img src="<%= s.image_url %>" alt="<%= s.name %>" >
+        </div>
+        <div class="notch-collectibles-small thumbnail-actions">
+          <div class="collectibles-wrapper" data-collectibles-slug="bulbasaur" data-slug="bulbasaur">
+            <div class="collectibles-collection"><a href="#" rel="tooltip" title="Add to My Collection" data-collection="have"><span class="icon icon_collection"></span></a></div>
+            <div class="collectibles-wishlist"><a href="#" rel="tooltip" title="Add to My Wish List" data-collection="want"><span class="icon icon_wishlist"></span></a></div>
+            <div class="collectibles-trade"><a href="#" rel="tooltip" title="Add to My Trade List" data-collection="trade"><span class="icon icon_trade"></span></a></div>
+          </div>
         </div>
         <div class="caption">
           <%= s.name%>

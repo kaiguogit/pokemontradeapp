@@ -16,6 +16,7 @@
             <div class="listing-table-td">
               <form method="post" action="/cart/listing">
                 <input type="hidden" name="_method" value="delete">
+                <input type="hidden" name="listing_id" value=<%= listing.id%>>
                 <button class="btn btn-primary">Remove</button>
               </form>
             </div>

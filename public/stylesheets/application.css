@@ -1,18 +1,30 @@
 .wrapper{
 max-width: 1024px;
 }
-.thumbail-wrapper img{
+.thumbnail-wrapper img{
  object-fit: contain;
  height: 100%;
  width: 100%;
 }
-
-.thumbail-wrapper{
-  height:100px;
+.thumbnail{
+  background: #F2F2F2;
+  transition: all 0.5s ease;
+}
+.thumbnail-wrapper{
+  height:200px;
 }
 
+.thumbnail:hover {
+  -ms-transform: scale(1.3); 
+  -webkit-transform: scale(1.3); 
+  transform: scale(1.3);
+}
+
+.thumbnail-actions{
+  background: transparent url("http://assets.pokemon.com/static2/_ui/img/chrome/notches/notch-collectibles.png") center top no-repeat;
+}
 .col-pokedex {
-  width: 10%;
+  width: 20%;
   padding: 0px 5px;
 }
 .thumbnail {
