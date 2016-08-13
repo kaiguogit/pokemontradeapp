@@ -22,6 +22,8 @@ end
 u = User.create(username: 'test', email: "test@email.com")
 # create user wish list for user 
 u.user_wish_list = UserWishList.new 
+u.user_wish_list.pokemons << Pokemon.create(species: Species.find(1))
+u.user_wish_list.pokemons << Pokemon.create(species: Species.find(2))
 u.save
 
 #create a cart for user
@@ -33,26 +35,24 @@ u.pokemons.create(name:"Pikachu", cp: 100, species: Species.find_by(name: 'Pikac
 u.pokemons.create(name:"Wartortle", cp: 50, species: Species.find_by(name: 'Wartortle'))
 
 
-l =  Listing.new
-l.pokemon = Pokemon.first
-l.wishlist = Wishlist.create
-l.wishlist.pokemons << Pokemon.create(species: Species.find(10))
-l.wishlist.pokemons << Pokemon.create(species: Species.find(151))
-l.wishlist.pokemons << Pokemon.create(species: Species.find(50))
-l.wishlist.save
-l.price = 1000
-l.save
+10.times do 
+  l =  Listing.new
+  l.pokemon =  Pokemon.create(species: Species.find(rand(1..151)),cp: rand(1..2000),\
+    quick_move: Move.where("move_type = 'quick_move'").sample, \
+    charge_move: Move.where("move_type = 'charge_move'").sample)
+  
+  l.wishlist = Wishlist.create
+  l.wishlist.pokemons << Pokemon.create(cp: rand(1..2000), species: Species.find_by(name: "Pikachu"),\
+    quick_move: Move.where("move_type = 'quick_move'").sample, \
+    charge_move: Move.where("move_type = 'charge_move'").sample)
 
-
-l =  Listing.new
-l.pokemon = Pokemon.last
-l.wishlist = Wishlist.create
-l.wishlist.pokemons << Pokemon.create(species: Species.find(33))
-l.wishlist.pokemons << Pokemon.create(species: Species.find(48))
-l.wishlist.pokemons << Pokemon.create(species: Species.find(77))
-l.wishlist.save
-l.price = 2000
-l.save
-
+  4.times do 
+    l.wishlist.pokemons << Pokemon.create(species: Species.find(rand(1..151)),cp: rand(1..2000),\
+    quick_move: Move.where("move_type = 'quick_move'").sample, \
+    charge_move: Move.where("move_type = 'charge_move'").sample)
+  end
+  l.price = rand(500..3000)
+  l.save
+end
 
 

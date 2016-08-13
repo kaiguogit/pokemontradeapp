@@ -1,44 +1,46 @@
 <!--search/filter-->
-<div class="row ">
-  <div class="container wrapper col-md-6">
-    <div class="col-md-6">
-      <input type="text" class="form-control" id="search-pokemon" placeholder="Search by name" name="keyword">
-    </div>
+<div class="row search-bars">
+  <div class="col-md-offset-4 col-md-5">
+    <label for="search-bar-pokedex">Search by Name</label>
+    <select data-placeholder="Choose a name..." class="chosen-select col-md-6" id="search-bar-pokedex" style="width: 500px;" multiple tabindex="2">
+      <option value=""></option>
+      <% Species.all.order(:name).each do |species|%>
+        <option><%= species.name %></option>>
+      <% end %>
+    </select>
   </div>
-
-  <select data-placeholder="Choose a type..." class="chosen-select col-md-6" id="type-pokemon" multiple style="width:350px;" tabindex="2">
-    <option value=""></option>
-    <% Type.all.each do |type|%>
-      <option><%= type.name %></option>>
-    <% end %>
-  </select>
+  <div class="col-md-3">
+    <label for="type-bar-pokedex">Search by Type</label>
+    <select data-placeholder="Choose a type..." class="chosen-select col-md-6" id="type-bar-pokedex" style="width: 200px;" multiple tabindex="2">
+      <option value=""></option>
+      <% Type.all.order(:name).each do |type|%>
+        <option><%= type.name %></option>>
+      <% end %>
+    </select>
+  </div>
 </div>
 
 <div class="container wrapper">
-  <!--add to wish list form-->
-   <form name='wish_list_form' method='post' action="pokemon/wish_list">
-      <input id="pokemon_to_wish" type="hidden" name='id' value="">              
-    </form>
 
   <!-- pokemon cards -->
 
   <% Species.all.each do |s| %>
-    <div class="col-md-2 col-pokedex">
+    <div class="col-md-2 col-pokedex" data-species-id="<%= s.id %>" >
       <div class="thumbnail">
         <div class= "thumbnail-wrapper">
           <img class="thumbnail-image" src="<%= s.image_url %>" alt="<%= s.name %>" >
         </div>
 
         <div class="thumbnail-actions">
-              <a href="pokemon/add/<%= s.id %>" class="add_to_profile_button"><!-- <span class='glyphicon glyphicon-plus-sign'></span> -->
-                <!-- <img class="add_to_profile_button_img" src="/icons/pokeball-bw.png"> --> 
-              </a>
+            <div class="button-tooltip add_to_collection_button_wrapper">
+              <span class="button-tooltiptext">Add to My Collection</span>
+              <a href="pokemon/add/<%= s.id %>" class="add_to_profile_button popup-ajax" ></a>
+            </div>
+            <div class="button-tooltip wish_list_button_wrapper">
+              <span class="button-tooltiptext">Add to My Wishlist</span>
+              <a class="wish_list_button" href="" data-species-id="<%= s.id %>" ><span class='glyphicon glyphicon-heart'></span></a>   
+            </div>
 
-            <!--buttons-->
-            <a href="/pokemon/add/<%= s.id %>" class="popup-ajax"> Show inline popup</a>     
-<!--             <a href="pokemon/add/<%= s.id %>"><span class='glyphicon glyphicon-plus-sign'></span></a> -->
-
-            <a class="wish_list_button" data-id="<%= s.id %>" href="#"><span class='glyphicon glyphicon-heart'></span></a>   
         </div>
 
         <div class="caption">

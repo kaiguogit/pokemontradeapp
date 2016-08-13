@@ -1,17 +1,22 @@
 # Homepage (Root path)
 
-# before do
-#   if loggedin?
-#     @cart = User.find(session[:user_id]).cart
-#   else
-#     begin
-#       @cart = Cart.find(session[:cart_id])
-#     rescue ActiveRecord::RecordNotFound
-#       c = Cart.create
-#       session[:cart_id] = c.id
-#     end
-#   end
-# end
+before do
+  if session[:user_id]
+    @user = User.find(session[:user_id])
+  else
+    @user = nil
+  end
+  # if loggedin?
+  #   @cart = User.find(session[:user_id]).cart
+  # else
+  #   begin
+  #     @cart = Cart.find(session[:cart_id])
+  #   rescue ActiveRecord::RecordNotFound
+  #     c = Cart.create
+  #     session[:cart_id] = c.id
+  #   end
+  # end
+end
 
 helpers do 
   def loggedin?
@@ -98,20 +103,24 @@ post '/pokemon/add/submit' do
   redirect '/pokedex'
 end 
 
-# button from pokedex, to add to wishlist 
+# # button from pokedex, to add to wishlist 
 
-post '/pokemon/wish_list' do
-  if loggedin?
-    pokemon = Pokemon.new
-    pokemon.user_wish_list = UserWishList.find_by(user_id: session[:user_id])
-    pokemon.species = Species.find(params[:id])
-    pokemon.save   
-  else
-    flash[:notice] = 'Please log in to add pokemon to your wish list'    
-  end
-  redirect '/pokedex'
-end 
+# post '/pokemon/wish_list' do
+#   if loggedin?
+#     pokemon = Pokemon.new
+#     pokemon.user_wish_list = UserWishList.find_by(user_id: session[:user_id])
+#     pokemon.species = Species.find(params[:id])
+#     pokemon.save   
+#   else
+#     flash[:notice] = 'Please log in to add pokemon to your wish list'    
+#   end
+#   redirect '/pokedex'
+# end 
 
+get '/listings/index' do
+
+  erb :'listings/index'
+end
 
 
 post '/listings/add_to_cart' do 

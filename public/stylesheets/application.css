@@ -1,3 +1,4 @@
+
 #home_logo {
   position: relative;
   display: block;
@@ -13,6 +14,80 @@
   list-style: none
 }
 
+.top_bar{
+  margin-bottom: 0px
+}
+/* Tooltip container */
+.button-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+/* Tooltip text */
+.button-tooltip .button-tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #616161;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+ 
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    /*z-index: 1;*/
+
+
+    bottom: 100%;
+    left: 50%; 
+    margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.button-tooltip:hover .button-tooltiptext {
+    visibility: visible;
+}
+.listing-table-body .button-tooltip .button-tooltiptext {
+    top: -207px;
+    left: 200%;
+    width: 208px;
+    height: 204px;
+}
+
+
+.listing-table-body .button-tooltip .button-tooltiptext .popup-img{
+  height: 75%;
+  position: absolute;
+}
+.listing-table-body .button-tooltip .button-tooltiptext .popup-name{
+  height:10px;
+  top: 24px;
+  left: 36%;
+  font-size: 1.2em;
+  }
+.listing-table-body .button-tooltip .button-tooltiptext .popup-message-own{
+  font-weight: bold;
+  color: #9bcc50;
+  font-size: 1.1em;
+  position: absolute;
+  bottom: -9%;
+  left: 10%;
+}
+.listing-table-body .button-tooltip .button-tooltiptext .popup-message-not-own{
+  font-weight: bold;
+  color: #ffffff;
+  font-size: 1.1em;
+  position: absolute;
+  bottom: -9%;
+  left: 13%;
+}
+
+
+.listings-wishlist-user-owned{
+  background-color: #9bcc50;
+  border-radius: 50%;
+}
+
 .example-popup {
   position: relative;
   background: #FFF;
@@ -26,9 +101,22 @@
 max-width: 1024px;
 }
 
-.wish_list_button, .add_to_profile_button{
- font-size: 20px;
- color: #fac;
+.wish_list_button {
+  font-size: 30px;
+  color: #616161;
+}
+.wish_list_button:active, .wish_list_button:focus {
+  font-size: 30px;
+  color: #616161;
+}
+
+.wish_list_button_liked{
+  color: #ff3d00;
+}
+
+.wish_list_button_liked:active, .wish_list_button_liked:focus {
+  font-size: 30px;
+  color: #ff3d00;
 }
 
 .add_to_profile_button img.add_to_profile_button_img{
@@ -68,6 +156,22 @@ max-width: 1024px;
   transform: scale(1.1);
 }
 
+.search-bars{
+    background: #313131;
+    font-family: "Titillium Web",arial,sans-serif;
+    font-size: 167.5%;
+    color: #fff;
+    margin:0px 0px 10px 0px;
+    padding:10px 0px;
+}
+
+#search_bar_pokedex_chosen, #type_bar_pokedex_chosen{
+    border: 3px solid #616161;
+    margin-top: 0.325em;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
 .pokemon-type-tag{
     font-family: "Flexo-Medium",arial,sans-serif;
     border-radius: 3px;
@@ -75,11 +179,19 @@ max-width: 1024px;
     max-width: 110px;
     margin: 0 1.5625% 0 0;
     width: 38.4375%;
-/*    float: left;*/
+    /*float: left;*/
     text-transform: none;
     font-size: 11px;
     text-align: center;
     display: inline-block;
+}
+.listing-table-body .pokemon-type-tag{
+    width:100%;
+    float:left;
+    display:inline-block;
+}
+.pokemon-type-tag-dropdown{
+  margin: 5px 0px !important;
 }
 .background-color-grass{
     background-color: #9bcc50;
@@ -184,11 +296,17 @@ max-width: 1024px;
   text-align: center;
   padding: 0px;
 }
-
-.listing-table-td{
+.listing-table{
+  max-width: 1024px;
+  margin: auto;
+}
+.listing-table-body{
+  font-family: "Titillium Web",arial,sans-serif;
+}
+.listing-table-body td div{
   height: 50px;
 }
-.listing-table-td img{
+.listing-table-body img.td-icon{
   height: 100%;
 }
 body{
@@ -201,3 +319,6 @@ body{
 .popup_add{
   /*display: none;*/
 }
+
+
+
