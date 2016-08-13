@@ -1,6 +1,42 @@
 .top_bar{
   margin-bottom: 0px
 }
+/* Tooltip container */
+.button-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+/* Tooltip text */
+.button-tooltip .button-tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #616161;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+ 
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+
+
+    bottom: 100%;
+    left: 50%; 
+    margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.button-tooltip:hover .button-tooltiptext {
+    visibility: visible;
+}
+
+.listings-wishlist-user-owned{
+  background-color: #2ca5d7;
+  border-radius: 50%;
+}
+
 .example-popup {
   position: relative;
   background: #FFF;
@@ -14,9 +50,22 @@
 max-width: 1024px;
 }
 
-.wish_list_button, .add_to_profile_button{
- font-size: 20px;
- color: #fac;
+.wish_list_button {
+  font-size: 30px;
+  color: #616161;
+}
+.wish_list_button:active, .wish_list_button:focus {
+  font-size: 30px;
+  color: #616161;
+}
+
+.wish_list_button_liked{
+  color: #ff3d00;
+}
+
+.wish_list_button_liked:active, .wish_list_button_liked:focus {
+  font-size: 30px;
+  color: #ff3d00;
 }
 
 .add_to_profile_button img.add_to_profile_button_img{
@@ -205,4 +254,6 @@ body{
 .popup_add{
   /*display: none;*/
 }
+
+
 

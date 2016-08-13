@@ -9,13 +9,10 @@ $(document).ready(function() {
     $('form[name="wish_list_form"]').submit();
 
   });
-
  //------pokedex search-----------
 ///-----change type drop down list style
   var update_chosen_item_class = function(){
-    console.log('im here');
     $('#type_bar_pokedex_chosen .active-result').each(function(i, list_item){
-      console.log($(list_item).className);      
       text = list_item.innerHTML.toLowerCase();
       $(list_item).addClass("background-color-" + text);
       $(list_item).addClass("pokemon-type-tag-dropdown");
@@ -32,12 +29,12 @@ $(document).ready(function() {
   // name_input.chosen().change(function(){
   //   filter_pokemon();
   // });
-  type_input.chosen({max_selected_options: 2}).change(function(){
+  $(type_input).chosen({max_selected_options: 2}).change(function(){
     filter_pokemon();
   });
-  type_input.on('chosen:showing_dropdown', function(evt, params) {
-    update_chosen_item_class();
-  });
+  // $(type_input).on('chosen:showing_dropdown', function(evt, params) {
+  //   update_chosen_item_class();
+  // });
 
   update_chosen_item_class();
 
@@ -74,6 +71,67 @@ var filter_pokemon = function(){
   }
 
 ///---------------
+
+  //------WishList Ajax
+
+  var user_id = $('body').attr('data-user-id');
+  var get_user_wishlist = function(){
+    if (user_id != undefined) {
+      $.ajax({
+        url: '/api/user/' + user_id + '/wishlist',
+        method: 'GET', // optional
+        success: function(data) {
+          wrap_wishlist_button(data);
+          // for(var i = 0; i < data.length; i++) {
+          //   render_review(data[i]);
+          // }
+        }
+      });
+    }
+  }
+  get_user_wishlist();
+
+  var wrap_wishlist_button = function(wish_list){
+    var lis = $('.col-pokedex');
+    lis.each(function(i,l){
+      var $l = $(l)
+      // var name = $l.find('.caption').html().trim();
+      var species_id = $l.attr('data-species-id');
+      wrap_species_wishlist_button(species_id, wish_list);
+    });
+  }
+
+var wrap_species_wishlist_button = function(species_id,wish_list){
+  l = $(".col-pokedex[data-species-id=" + species_id +"]");
+  if (wish_list.indexOf(species_id) != -1){
+    l.find('.wish_list_button').addClass("wish_list_button_liked");
+    l.find('.wish_list_button_wrapper span.button-tooltiptext').text("Remove from Wishlist");
+  }
+  else{
+    l.find('.wish_list_button').removeClass("wish_list_button_liked");
+    l.find('.wish_list_button_wrapper span.button-tooltiptext').text("Add to Wishlist");
+  }
+}
+
+var add_to_wishlist = function(species_id) {
+    $.ajax({
+      url: '/api/user/' + user_id + '/wishlist',
+      type: 'POST',
+      data: { species_id: species_id },
+      success: function(wish_list) {
+        wrap_species_wishlist_button(species_id,wish_list);
+      },
+      error: function() {
+      }
+    });
+  }
+
+  $('a.wish_list_button').click(function() {
+    event.preventDefault();
+    var species_id = $(this).attr('data-species-id');
+    add_to_wishlist(species_id);
+  });
+
 
 });
 

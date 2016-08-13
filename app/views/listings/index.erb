@@ -1,7 +1,7 @@
 
-  <% search = Listing.joins(:pokemon).where("pokemons.name ILIKE '%#{params[:keyword]}%'") %> 
-  <% if params[:show_all] == "true" %>
-    <% search = Listing.all %>
+  <% search = Listing.all %>
+  <% if params[:keyword] %>
+    <% search = Listing.joins(:pokemon).where("pokemons.name ILIKE '%#{params[:keyword]}%'") %> 
   <% end %>
 
   <% if search.any? %>
@@ -16,10 +16,21 @@
           <tr>
           <% p = listing.pokemon %>
           <% wl = listing.wishlist %>
-          <td><div class="listing-table-td"><img src="<%= p.image_url %>"><%= p.name %></div></td>
+          <td>
+            <div class="listing-table-td button-tooltip">
+              <span class="button-tooltiptext">Tooltip text</span>
+              <img src="<%= p.image_url %>"><%= p.name %>
+            </div>
+          </td>
           <td><div class="listing-table-td">
             <% wl.pokemons.each do |wl_p|%>
-            <div class="col-md-3 listing-table-td"><img src="<%= wl_p.image_url%>"></div>
+            <div class="col-md-3 listing-table-td">
+              <img src="<%= wl_p.image_url%>"
+                <% if @user.pokemons.select{|p| p.species.id == wl_p.species.id}.any?%>
+                  class = "listings-wishlist-user-owned"
+                <% end %>
+              >
+              </div>
             <% end %>
           </div></td>
           <td><div class="listing-table-td"><%= listing.price ? (listing.price / 100.00).round(2) : 0 %>$</div></td>

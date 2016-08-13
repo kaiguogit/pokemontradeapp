@@ -9,7 +9,16 @@ class Pokemon < ActiveRecord::Base
   belongs_to :wishlist
   belongs_to :user_wish_list 
 
+  before_create :default_name
+
   def image_url
     species.image_url
   end
+
+  def default_name
+    if name.nil? && species
+      self.name = species.name
+    end
+  end
+
 end
