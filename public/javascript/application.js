@@ -23,14 +23,16 @@ $(document).ready(function() {
   }
 ///-----
   //update pokedex by search box 
-  var name_input = $('#search-bar-pokedex');
+  var name_input = $('#search_bar_pokedex_chosen > ul > li > input[type="text"]');
   var type_input = $('#type-bar-pokedex');
   //var name_input = document.getElementById('search-pokemon');
-  name_input = $(name_input);
+   name_input = $(name_input);
 
-  name_input.keyup(function(){filter_pokemon()});
+   name_input.keyup(function(){filter_pokemon()});
+  // name_input.chosen().change(function(){
+  //   filter_pokemon();
+  // });
   type_input.chosen({max_selected_options: 2}).change(function(){
-    update_chosen_item_class();
     filter_pokemon();
   });
   type_input.on('chosen:showing_dropdown', function(evt, params) {
