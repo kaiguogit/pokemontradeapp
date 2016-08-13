@@ -10,7 +10,29 @@
 .wrapper{
 max-width: 1024px;
 }
-.thumbnail-wrapper img{
+
+.wish_list_button, .add_to_profile_button{
+ font-size: 20px;
+ color: #fac;
+}
+
+.add_to_profile_button img.add_to_profile_button_img{
+  height:30px;
+  display: inline-block;
+}
+
+.add_to_profile_button{
+  height:30px;
+  width: 30px;
+  display: inline-block;
+  background-image: url("/icons/pokeball-c.png");
+  background-size: cover;
+}
+/*.add_to_profile_button{
+  background-image: '/icons/pokeball-c.png';
+}*/
+
+.thumbnail-wrapper img.thumbnail-image{
  object-fit: contain;
  height: 100%;
  width: 100%;
@@ -18,17 +40,32 @@ max-width: 1024px;
 .thumbnail{
   background: #F2F2F2;
   transition: all 0.5s ease;
+  text-align: center;
 }
 .thumbnail-wrapper{
   height:200px;
+  position:relative;
+ 
 }
-
 .thumbnail:hover {
   -ms-transform: scale(1.1); 
   -webkit-transform: scale(1.1); 
   transform: scale(1.1);
 }
 
+.pokemon-type-tag{
+    font-family: "Flexo-Medium",arial,sans-serif;
+    border-radius: 3px;
+    line-height: 18px;
+    max-width: 110px;
+    margin: 0 1.5625% 0 0;
+    width: 38.4375%;
+/*    float: left;*/
+    text-transform: none;
+    font-size: 11px;
+    text-align: center;
+    display: inline-block;
+}
 .background-color-grass{
     background-color: #9bcc50;
     color: #212121;

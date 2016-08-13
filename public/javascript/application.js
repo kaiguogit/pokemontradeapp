@@ -10,7 +10,6 @@ $(document).ready(function() {
 
   });
 
-
   
   //update pokedex by search box 
   var name_input = $('#search-pokemon');
@@ -70,5 +69,5 @@ jQuery(document).ready(function($) {
   //     }
   //   }
   // }
-});
+  });
 });
