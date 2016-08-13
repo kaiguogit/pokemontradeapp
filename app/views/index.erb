@@ -1,22 +1,6 @@
-<select data-placeholder="Choose a Country..." class="chosen-select" multiple style="width:350px;" tabindex="2">
-  <option value=""></option>
-  <% Species.all.each do |s| %>
-    <option value="<%= s.name %>">
-      <!-- <div class="thumbnail"> -->
-        <!-- <div class= "thumbnail-wrapper"> -->
-          <!-- <img src="<%= s.image_url %>" alt="<%= s.name %>" > -->
-        <!-- </div> -->
-        <div class="caption">
-          <%= s.name%>
-        </div>
-      <!-- </div> -->
-    </option>
-  <% end %>
-</select>
 
-<!-- <div class="container">
-  <%= erb :'/listings/index', locals: {keyword: "", show_all: true}%>    
-</div> -->
+
+  <%= erb :'/pokemons/pokedex' %>
 
 
 <div class="col-md-6">

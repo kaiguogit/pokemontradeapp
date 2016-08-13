@@ -1,3 +1,6 @@
+.top_bar{
+  margin-bottom: 0px
+}
 .example-popup {
   position: relative;
   background: #FFF;
@@ -53,6 +56,23 @@ max-width: 1024px;
   transform: scale(1.1);
 }
 
+.search-bars{
+    background: #313131;
+    font-family: "Titillium Web",arial,sans-serif;
+    font-size: 167.5%;
+    color: #fff;
+    margin:0px 0px 10px 0px;
+    padding:10px 0px;
+}
+
+#search-bar-pokedex, #type-bar-pokedex{
+    height: 40px;
+    border: 3px solid #616161;
+    margin-top: 0.325em;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
 .pokemon-type-tag{
     font-family: "Flexo-Medium",arial,sans-serif;
     border-radius: 3px;
@@ -65,6 +85,9 @@ max-width: 1024px;
     font-size: 11px;
     text-align: center;
     display: inline-block;
+}
+.pokemon-type-tag-dropdown{
+  margin: 5px 0px !important;
 }
 .background-color-grass{
     background-color: #9bcc50;
@@ -183,3 +206,4 @@ body{
 .popup_add{
   /*display: none;*/
 }
+

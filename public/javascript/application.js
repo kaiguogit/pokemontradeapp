@@ -10,17 +10,34 @@ $(document).ready(function() {
 
   });
 
-  
+ //------pokedex search-----------
+///-----change type drop down list style
+  var update_chosen_item_class = function(){
+    console.log('im here');
+    $('#type_bar_pokedex_chosen .active-result').each(function(i, list_item){
+      console.log($(list_item).className);      
+      text = list_item.innerHTML.toLowerCase();
+      $(list_item).addClass("background-color-" + text);
+      $(list_item).addClass("pokemon-type-tag-dropdown");
+    });
+  }
+///-----
   //update pokedex by search box 
-  var name_input = $('#search-pokemon');
-  var type_input = $('#type-pokemon');
+  var name_input = $('#search-bar-pokedex');
+  var type_input = $('#type-bar-pokedex');
   //var name_input = document.getElementById('search-pokemon');
   name_input = $(name_input);
 
   name_input.keyup(function(){filter_pokemon()});
-  type_input.chosen().change(function(){filter_pokemon()});
+  type_input.chosen({max_selected_options: 2}).change(function(){
+    update_chosen_item_class();
+    filter_pokemon();
+  });
+  type_input.on('chosen:showing_dropdown', function(evt, params) {
+    update_chosen_item_class();
+  });
 
-  
+  update_chosen_item_class();
 
 var filter_pokemon = function(){
       var name_filter = name_input.val().toUpperCase();
@@ -41,18 +58,20 @@ var filter_pokemon = function(){
     });
   }
 
-var filter_type = function(types, type_filter){
-  var result = false
-  if (type_filter == null){
-    return true
-  }
-  types.each(function(x,t){
-    if (t.innerHTML == type_filter){
-      result = true
+  var filter_type = function(types, type_filter){
+    var result = false
+    if (type_filter == null){
+      return true
     }
-  });
-  return result
-}
+    types.each(function(x,t){
+      if (t.innerHTML == type_filter){
+        result = true
+      }
+    });
+    return result
+  }
+
+///---------------
 
 });
 

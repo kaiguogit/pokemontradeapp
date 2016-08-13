@@ -1,17 +1,18 @@
 <!--search/filter-->
-<div class="row ">
-  <div class="container wrapper col-md-6">
-    <div class="col-md-6">
-      <input type="text" class="form-control" id="search-pokemon" placeholder="Search by name" name="keyword">
-    </div>
+<div class="row search-bars">
+  <div class="container wrapper col-md-offset-4 col-md-5">
+    <label>Search by Name</label>
+    <input type="text" class="form-control" id="search-bar-pokedex" placeholder="Search by name" name="keyword">
   </div>
-
-  <select data-placeholder="Choose a type..." class="chosen-select col-md-6" id="type-pokemon" multiple style="width:350px;" tabindex="2">
-    <option value=""></option>
-    <% Type.all.each do |type|%>
-      <option><%= type.name %></option>>
-    <% end %>
-  </select>
+  <div class="col-md-3">
+    <label>Search by Type</label>
+    <select data-placeholder="Choose a type..." class="chosen-select col-md-6" id="type-bar-pokedex" style="width: 200px;" multiple tabindex="2">
+      <option value=""></option>
+      <% Type.all.order(:name).each do |type|%>
+        <option><%= type.name %></option>>
+      <% end %>
+    </select>
+  </div>
 </div>
 
 <div class="container wrapper">
