@@ -1,6 +1,12 @@
 
-CSV.open('./db/pokemon_names.csv').each do |row|
-  Species.create(name: row[1])
+CSV.open('./db/pokemon_names_with_type.csv').each do |row|
+  s = Species.new(name: row[1])
+  types = row[2].split(",").map{ |t| t.scan(/\w+/)[0]}
+  types.each do |type|
+    Type.create(name: type)
+    s.types << Type.find_by(name: type)
+  end
+  s.save
 end
 
 CSV.open('./db/charge_moves.csv').each do |row|
