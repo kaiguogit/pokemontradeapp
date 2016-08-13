@@ -35,44 +35,23 @@ u.pokemons.create(name:"Pikachu", cp: 100, species: Species.find_by(name: 'Pikac
 u.pokemons.create(name:"Wartortle", cp: 50, species: Species.find_by(name: 'Wartortle'))
 
 
-def randmonlize
-  (1..151).to_a.sample
-end 
-def randmonlize_price
-  (500..3000).to_a.sample
-end
-
-l =  Listing.new
-l.pokemon = Pokemon.first
-l.wishlist = Wishlist.create
-l.wishlist.pokemons << Pokemon.create(species: Species.find(10))
-l.wishlist.pokemons << Pokemon.create(species: Species.find(151))
-l.wishlist.pokemons << Pokemon.create(species: Species.find(50))
-l.wishlist.pokemons << Pokemon.create(species: Species.find_by(name: 'Wartortle'))
-l.wishlist.save
-l.price = 1000
-l.save
-
-
-l =  Listing.new
-l.pokemon = Pokemon.last
-l.wishlist = Wishlist.create
-l.wishlist.pokemons << Pokemon.create(species: Species.find(33))
-l.wishlist.pokemons << Pokemon.create(species: Species.find(48))
-l.wishlist.pokemons << Pokemon.create(species: Species.find(77))
-l.wishlist.save
-l.price = 2000
-l.save
-
 10.times do 
   l =  Listing.new
-  l.pokemon = Pokemon.create(species: Species.find(randmonlize))
+  l.pokemon =  Pokemon.create(species: Species.find(rand(1..151)),cp: rand(1..2000),\
+    quick_move: Move.where("move_type = 'quick_move'").sample, \
+    charge_move: Move.where("move_type = 'charge_move'").sample)
+  
   l.wishlist = Wishlist.create
-  l.wishlist.pokemons << Pokemon.create(species: Species.find_by(name: "Pikachu"))
+  l.wishlist.pokemons << Pokemon.create(cp: rand(1..2000), species: Species.find_by(name: "Pikachu"),\
+    quick_move: Move.where("move_type = 'quick_move'").sample, \
+    charge_move: Move.where("move_type = 'charge_move'").sample)
+
   4.times do 
-    l.wishlist.pokemons << Pokemon.create(species: Species.find(randmonlize))
+    l.wishlist.pokemons << Pokemon.create(species: Species.find(rand(1..151)),cp: rand(1..2000),\
+    quick_move: Move.where("move_type = 'quick_move'").sample, \
+    charge_move: Move.where("move_type = 'charge_move'").sample)
   end
-  l.price = randmonlize_price
+  l.price = rand(500..3000)
   l.save
 end
 

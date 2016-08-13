@@ -19,7 +19,7 @@
  
     /* Position the tooltip text - see examples below! */
     position: absolute;
-    z-index: 1;
+    /*z-index: 1;*/
 
 
     bottom: 100%;
@@ -31,9 +31,44 @@
 .button-tooltip:hover .button-tooltiptext {
     visibility: visible;
 }
+.listing-table-body .button-tooltip .button-tooltiptext {
+    top: -207px;
+    left: 200%;
+    width: 208px;
+    height: 204px;
+}
+
+
+.listing-table-body .button-tooltip .button-tooltiptext .popup-img{
+  height: 75%;
+  position: absolute;
+}
+.listing-table-body .button-tooltip .button-tooltiptext .popup-name{
+  height:10px;
+  top: 24px;
+  left: 36%;
+  font-size: 1.2em;
+  }
+.listing-table-body .button-tooltip .button-tooltiptext .popup-message-own{
+  font-weight: bold;
+  color: #9bcc50;
+  font-size: 1.1em;
+  position: absolute;
+  bottom: -9%;
+  left: 10%;
+}
+.listing-table-body .button-tooltip .button-tooltiptext .popup-message-not-own{
+  font-weight: bold;
+  color: #ffffff;
+  font-size: 1.1em;
+  position: absolute;
+  bottom: -9%;
+  left: 13%;
+}
+
 
 .listings-wishlist-user-owned{
-  background-color: #2ca5d7;
+  background-color: #9bcc50;
   border-radius: 50%;
 }
 
@@ -128,11 +163,16 @@ max-width: 1024px;
     max-width: 110px;
     margin: 0 1.5625% 0 0;
     width: 38.4375%;
-/*    float: left;*/
+    /*float: left;*/
     text-transform: none;
     font-size: 11px;
     text-align: center;
     display: inline-block;
+}
+.listing-table-body .pokemon-type-tag{
+    width:100%;
+    float:left;
+    display:inline-block;
 }
 .pokemon-type-tag-dropdown{
   margin: 5px 0px !important;
@@ -240,11 +280,17 @@ max-width: 1024px;
   text-align: center;
   padding: 0px;
 }
-
-.listing-table-td{
+.listing-table{
+  max-width: 1024px;
+  margin: auto;
+}
+.listing-table-body{
+  font-family: "Titillium Web",arial,sans-serif;
+}
+.listing-table-body td div{
   height: 50px;
 }
-.listing-table-td img{
+.listing-table-body img.td-icon{
   height: 100%;
 }
 body{
