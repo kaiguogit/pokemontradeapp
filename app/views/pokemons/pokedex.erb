@@ -1,3 +1,18 @@
+<div class="row ">
+  <div class="container wrapper col-md-6">
+    <div class="col-md-6">
+      <input type="text" class="form-control" id="search-pokemon" placeholder="Search" name="keyword">
+    </div>
+  </div>
+
+  <select data-placeholder="Choose a Country..." class="chosen-select col-md-6" id="type-pokemon" multiple style="width:350px;" tabindex="2">
+    <option value=""></option>
+    <% Type.all.each do |type|%>
+      <option><%= type.name %></option>>
+    <% end %>
+  </select>
+</div>
+
 <div class="container wrapper">
   <!-- <div class="row"> -->
    <form name='wish_list_form' method='post' action="pokemon/wish_list">
@@ -24,8 +39,11 @@
 
         <div class="caption">
           <%= s.name %>
-          <!-- <p>...</p> -->
-       <!--    <p><a href="#" class="btn btn-primary" role="button">Sell</a> <a href="#" class="btn btn-default" role="button">Edit</a></p> -->
+        </div>
+        <div class="species-type-wrapper">
+          <% s.types.each do |type|%>
+            <span class="background-color-<%= type.name.downcase %>"><%= type.name %></span>
+          <% end %>
         </div>
       </div>
     </div>

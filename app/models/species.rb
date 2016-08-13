@@ -1,9 +1,15 @@
 class Species < ActiveRecord::Base
   has_many :pokemons
 
+  has_and_belongs_to_many :types
+
   def image_url
     # "https://img.pokemondb.net/artwork/#{name.downcase}.jpg"
+<<<<<<< HEAD
     "/images/#{id_to_index(id)}.png"
+=======
+    "./images/#{id_to_index(id)}.png"
+>>>>>>> searchbar
   end
 
   def id_to_index(number)
