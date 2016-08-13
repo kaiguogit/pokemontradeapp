@@ -1,3 +1,18 @@
+#home_logo {
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  height: 200px;
+}
+
+.top_bar_list {
+  margin: 0px
+}
+
+.dropdown-list {
+  list-style: none
+}
+
 .example-popup {
   position: relative;
   background: #FFF;
@@ -177,7 +192,10 @@ max-width: 1024px;
   height: 100%;
 }
 body{
-  background: #fff url("http://assets.pokemon.com/static2/_ui/img/chrome/container_bg.png");
+  /*background: #fff url("http://assets.pokemon.com/static2/_ui/img/chrome/container_bg.png");*/
+  background-image: url("/icons/vancouver.jpg");
+  padding-top: 70px;
+  margin: 0 auto;
 }
 
 .popup_add{
