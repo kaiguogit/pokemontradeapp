@@ -76,13 +76,13 @@ get '/pokedex' do
 end
 
 get '/pokemon/add/:id' do
-  if loggedin?  
+  # if loggedin?  
     @species = Species.find(params[:id])
-    erb :'pokemons/add'
-  else
-    flash[:notice] = 'Please log in to add pokemon to your profile'
-    redirect '/pokedex'
-  end
+     erb :'pokemons/add'
+  # else
+  #   flash[:notice] = 'Please log in to add pokemon to your profile'
+  #   redirect '/pokedex'
+  # end
 end
 
 post '/pokemon/add/submit' do

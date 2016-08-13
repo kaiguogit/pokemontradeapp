@@ -1,7 +1,6 @@
 $(document).ready(function() {
 
   // See: http://docs.jquery.com/Tutorials:Introducing_$(document).ready()
-<<<<<<< HEAD
 
   $(".wish_list_button").click(function() {
 
@@ -10,8 +9,8 @@ $(document).ready(function() {
     $('form[name="wish_list_form"]').submit();
 
   });
-});
-=======
+
+
   
   //update pokedex by search box 
   var name_input = $('#search-pokemon');
@@ -57,4 +56,19 @@ var filter_type = function(types, type_filter){
 }
 
 });
->>>>>>> searchbar
+
+jQuery(document).ready(function($) {
+  $('.popup-ajax').magnificPopup({
+  type:'ajax'
+  // midClick: true,
+  // ajax: {
+  //   settings:{
+  //     method: "GET",
+  //     url: "/pokemon/add/1",
+  //     success: function(){
+  //       console.log("success!")
+  //     }
+  //   }
+  // }
+});
+});
