@@ -170,10 +170,11 @@
 max-width: 1024px;
 }
 
-.wish_list_button {
+.wish_list_button, .add_to_trade_list_button, .remove_from_collection_button, .edit_in_collection_button {
   font-size: 30px;
   color: #616161;
 }
+
 .wish_list_button:active, .wish_list_button:focus {
   font-size: 30px;
   color: #616161;
@@ -412,3 +413,31 @@ body{
 
 }
 
+.white-popup {
+  position: relative;
+  background: #FFF;
+  padding: 20px;
+  width: auto;
+  max-width: 500px;
+  margin: 20px auto;
+  height: 559px; 
+  width:500px; 
+  margin: auto;
+  text-align:center;
+}
+.white-popup div{
+  margin:auto;
+}
+.white-popup #popup-add-to-collection-form{
+  text-align:left;
+}
+.white-popup .popup-title{
+  font-size:2em;
+}
+/*.white-popup #popup-add-to-collection-button{
+  color:#8ac878;
+}*/
+
+.chosen-container.chosen-container-single {
+    min-width: 200px !important; /* or any value that fits your needs */
+}

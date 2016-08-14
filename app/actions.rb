@@ -90,18 +90,18 @@ get '/pokemon/add/:id' do
   # end
 end
 
-post '/pokemon/add/submit' do
-  @new_pokemon = Pokemon.new(
-    user: User.find(params[:user_id]),
-    species: Species.find(params[:species_id]), 
-    name: params[:name], 
-    cp: params[:cp], 
-    quick_move: Move.find_by(name: params[:quick_move]),
-    charge_move: Move.find_by(name: params[:charge_move]) 
-    )
-  @new_pokemon.save
-  redirect '/pokedex'
-end 
+# post '/pokemon/add/submit' do
+#   @new_pokemon = Pokemon.new(
+#     user: User.find(params[:user_id]),
+#     species: Species.find(params[:species_id]), 
+#     name: params[:name], 
+#     cp: params[:cp], 
+#     quick_move: Move.find_by(name: params[:quick_move]),
+#     charge_move: Move.find_by(name: params[:charge_move]) 
+#     )
+#   @new_pokemon.save
+#   redirect '/pokedex'
+# end 
 
 # # button from pokedex, to add to wishlist 
 
