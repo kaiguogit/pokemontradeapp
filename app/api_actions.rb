@@ -63,6 +63,30 @@ namespace '/api' do
       json result
     end
 
+    post '/listings' do
+      user = User.find(params[:user_id])
+      # binding.pry
+      if user.listings.select{|l|l.pokemon.id.to_s == params[:pokemon_id]}.empty?
+        listing = Listing.new()
+        listing.pokemon = Pokemon.find(params[:pokemon_id])
+        listing.wishlist = Wishlist.new()
+        listing.user = user
+        params[:wish_list].each do |p_id|
+          listing.wishlist.pokemons << Pokemon.create(species: Species.find(p_id))
+        end
+        listing.price = params[:price]
+        if listing.save
+          puts "successfully saved listing"
+          json listing.attributes
+        else
+          puts "failed to save listing"
+          json({message: "failed to save listing"})
+        end
+      else
+        json({message: "This pokemon is already listed in trade listing"})
+      end
+    end
+
   end
 
 end

@@ -339,29 +339,38 @@ jQuery(document).ready(function($) {
       pokemon_url = el.attr('data-pokemon-url');
       species_name = el.attr('data-pokemon-species-name');
       pokemon_cp = el.attr('data-pokemon-cp');
-      popup_div.find('#popup-species-image').html("<img class=\"thumbnail-image\" src=\""+ pokemon_url +"\" alt=\"Bulbasaur\">");
-      popup_div.find('#popup-species-name').html("<span>" + species_name + "</span>");
-      popup_div.find('#popup-nick-name').html("<input class='form-control' type='text' id='name' name='name' value='"+ pokemon_name+ "'>");
-      popup_div.find('#popup-cp').html("<input class='form-control' type='text' id='cp' name='cp' value='"+ pokemon_cp+ "'>");
+
+      l = $("#owned-pokemon-list .col-pokedex[data-pokemon-id=" + pokemon_id +"]");
+
+      popup_div.find('.thumbnail-wrapper').html(l.find('.thumbnail-wrapper').html());
+      popup_div.find('.collection-pokemon-name').html(l.find('.collection-pokemon-name').html());
+      popup_div.find('.collection-pokemon-cp').html(l.find('.collection-pokemon-cp').html());
+      popup_div.find('.species-type-wrapper').html(l.find('.species-type-wrapper').html());
       console.log(this);
 
       popup_div.find('#popup-form').submit(function(){
         popup_div.find('#popup-message').html("");
+        wishlist_array = popup_div.find('.trade-form-wish-list-item');
+        wishlist_array = $(wishlist_array).filter(function(i,b){return ($(b.children).hasClass('listings-wishlist-user-owned')); });
+        wishlist_array = jQuery.map(wishlist_array,function(a){return $(a).attr("data-species-id");});
         event.preventDefault();
         $form = $(this)
         $.ajax({
           url: $form.attr('action'),
-          type: 'PUT',
-          data: {pokemon_id: pokemon_id, user_id: user_id, cp: $('#cp').val(), name: $('#name').val(), quick_move: $('#quick_move').val(), charge_move: $('#charge_move').val()},
+          type: 'POST',
+          data: {pokemon_id: pokemon_id, user_id: user_id, wish_list: wishlist_array, price: "1000"},
           success: function(data){
             console.log(data);
-            update_pokemon_card(data);
-            popup_div.find('#popup-message').html("<span style=\"color: green;\">Successfully edited this pokemon.</span>");
+            console.log("added to trade list");
+            popup_div.find('#popup-message').html("<span style=\"color: green;\">"+ data.message +".</span>");
+            if(data.message != null){
+              alert(data.message);
+            }
             setTimeout(function(){console.log("closing popup");popup.close();}, 500);
             
           },
           error: function(){
-            popup_div.find('#popup-message').html("<span style=\"color: red;\">Failed to edit this pokemon.</span>");
+            popup_div.find('#popup-message').html("<span style=\"color: red;\">Failed to add to trade list.</span>");
             setTimeout(function(){console.log("closing popup");popup.close();}, 500);
           }
         });
@@ -374,6 +383,9 @@ jQuery(document).ready(function($) {
   }
   });
 
+  $('#add_to_trade_list_popup .trade-form-wish-list-item').click(function(){
+    $(this.children).toggleClass("listings-wishlist-user-owned");
+  });
 
   
 });

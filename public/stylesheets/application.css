@@ -425,6 +425,23 @@ body{
   margin: auto;
   text-align:center;
 }
+#add_to_trade_list_popup {
+  position: relative;
+  background: #FFF;
+  /*padding: 20px;*/
+  /*width: auto;*/
+  /*max-width: 500px;*/
+  /*margin: 20px auto;*/
+  height: 559px; 
+  /*width:500px; */
+  /*margin: auto;*/
+  /*text-align:center;*/
+}
+
+#add_to_trade_list_popup .small-icon{
+  height: 80px;
+}
+
 .white-popup div{
   margin:auto;
 }
