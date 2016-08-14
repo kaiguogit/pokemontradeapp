@@ -105,6 +105,10 @@ max-width: 1024px;
   font-size: 30px;
   color: #616161;
 }
+.remove_from_collection_button{
+  font-size: 30px;
+  color: #616161;
+}
 .wish_list_button:active, .wish_list_button:focus {
   font-size: 30px;
   color: #616161;

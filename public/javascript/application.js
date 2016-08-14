@@ -99,6 +99,7 @@ var filter_pokemon = function(){
       // var name = $l.find('.caption').html().trim();
       var species_id = $l.attr('data-species-id');
       wrap_species_wishlist_button(species_id, wish_list);
+      update_wishlist_cards(species_id, wish_list);
     });
   }
 
@@ -114,12 +115,32 @@ var wrap_species_wishlist_button = function(species_id,wish_list){
   }
 }
 
-var remove_from_wish_list = function(species_id,wish_list){
+var update_wishlist_cards = function(species_id,wish_list){
   l = $("#wish-list .col-pokedex[data-species-id=" + species_id +"]");
-  if (wish_list.indexOf(species_id) == -1){
+  if (wish_list.indexOf(species_id) != -1){
+    l.show();
+  }
+  else{
     l.hide();
   }
 }
+
+var update_collection_cards = function(pokemon_id,collection_list){
+  l = $("#owned-pokemon-list .col-pokedex[data-pokemon-id=" + pokemon_id +"]");
+  if (collection_list.indexOf(pokemon_id) != -1){
+    l.show();
+  }
+  else{
+    l.hide();
+  }
+}
+
+// var remove_from_wish_list = function(species_id,wish_list){
+//   l = $("#wish-list .col-pokedex[data-species-id=" + species_id +"]");
+//   if (wish_list.indexOf(species_id) == -1){
+//     l.hide();
+//   }
+// }
 
 var update_to_wishlist = function(species_id,ele) {
     $.ajax({
@@ -130,30 +151,57 @@ var update_to_wishlist = function(species_id,ele) {
         ele.attr('data-disabled',"false");
         ele.html('<span class=\'glyphicon glyphicon-heart\'></span>');
         wrap_species_wishlist_button(species_id, wish_list);
-        remove_from_wish_list(species_id, wish_list);
+        update_wishlist_cards(species_id, wish_list);
+      },
+      error: function() {
+      }
+    });
+  }
+var remove_from_collection = function(pokemon_id,ele) {
+    $.ajax({
+      url: '/api/user/' + user_id + '/pokemons',
+      type: 'DELETE',
+      data: { pokemon_id: pokemon_id },
+      success: function(collection_list) {
+        ele.attr('data-disabled',"false");
+        ele.html('<span class=\'glyphicon glyphicon-heart\'></span>');
+        update_collection_cards(pokemon_id, collection_list);
       },
       error: function() {
       }
     });
   }
 
-
-
+//////wish_list_button_listener
   $('a.wish_list_button').click(function() {
     event.preventDefault();
-
     if($(this).attr('data-disabled') == "true"){
       return false;
     }
-
     var ele = $(this);
-
     var species_id = $(this).attr('data-species-id');
     //http://preloaders.net/en/free
     $(this).html('<img id=\"#loader-icon\" src=\"/images/loader-icon36-36.gif\">')
     $(this).attr('data-disabled',"true");
     update_to_wishlist(species_id,ele);
   });
+
+////collection button listener
+
+  $('a.remove_from_collection_button').click(function() {
+    event.preventDefault();
+    if($(this).attr('data-disabled') == "true"){
+      return false;
+    }
+    var ele = $(this);
+    var pokemon_id = $(this).attr('data-pokemon-id');
+    //http://preloaders.net/en/free
+    $(this).html('<img id=\"#loader-icon\" src=\"/images/loader-icon36-36.gif\">')
+    $(this).attr('data-disabled',"true");
+    remove_from_collection(pokemon_id,ele);
+  });
+
+
 
  $('a.tab-link').click(function(){
   $(this).parent().siblings().removeClass('active');

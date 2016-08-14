@@ -39,4 +39,11 @@ namespace '/api' do
     @new_pokemon.save
     json @new_pokemon.attributes
   end
+
+  delete '/user/:user_id/pokemons' do
+    Pokemon.destroy(params[:pokemon_id])
+    user = User.find(params[:user_id])
+    pokemon_array = user.pokemons.map{|p|p.id.to_s}
+    json pokemon_array
+  end
 end
