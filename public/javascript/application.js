@@ -224,22 +224,23 @@ jQuery(document).ready(function($) {
   var user_id = $('body').attr('data-user-id');
 
 
-  $('.popup-ajax').magnificPopup({
+  $('.popup-add-to-collection').magnificPopup({
   type:'inline',
   callbacks: {
     open: function() {
       el = $(this._lastFocusedEl);
       popup = this;
+      popup_div = $('#add_to_collection_popup');
       species_id = el.attr('data-species-id');
       species_name = el.attr('data-species-name');
       species_url = el.attr('data-species-url');
-      $('#popup-add-to-collection-image').html("<img class=\"thumbnail-image\" src=\""+ species_url +"\" alt=\"Bulbasaur\">");
-      $('#popup-add-to-collection-name').html("<span>" + species_name + "</span>");
-      $('#popup-add-to-collection-nick-name').html("<input class='form-control' type='text' id='name' name='name' value='"+ species_name+ "'>");
-      console.log(this);
+      
+      popup_div.find('#popup-species-image').html("<img class=\"thumbnail-image\" src=\""+ species_url +"\" alt=\"Bulbasaur\">");
+      popup_div.find('#popup-species-name').html("<span>" + species_name + "</span>");
+      popup_div.find('#popup-nick-name').html("<input class='form-control' type='text' id='name' name='name' value='"+ species_name+ "'>");
 
-      $('#popup-add-to-collection-form').submit(function(){
-        $('#popup-add-to-collection-message').html("");
+      popup_div.find('#popup-form').submit(function(){
+        popup_div.find('#popup-message').html("");
         event.preventDefault();
         $form = $(this)
         $.ajax({
@@ -247,13 +248,12 @@ jQuery(document).ready(function($) {
           type: 'POST',
           data: {species_id: species_id, user_id: user_id, cp: $('#cp').val(), name: $('#name').val(), quick_move: $('#quick_move').val(), charge_move: $('charge_move').val()},
           success: function(data){
-            console.log(data);
-            $('#popup-add-to-collection-message').html("<span style=\"color: green;\">Successfully added to collection.</span>");
+            popup_div.find('#popup-message').html("<span style=\"color: green;\">Successfully added to collection.</span>");
             setTimeout(function(){console.log(1);popup.close();}, 2000);
             
           },
           error: function(){
-            $('#popup-add-to-collection-message').html("<span style=\"color: red;\">Failed to added to collection.</span>");
+            popup_div.find('#popup-message').html("<span style=\"color: red;\">Failed to added to collection.</span>");
             setTimeout(function(){console.log(1);popup.close();}, 2000);
           }
         });
@@ -265,4 +265,115 @@ jQuery(document).ready(function($) {
     // e.t.c.
   }
   });
+
+//edit pokemon popup  
+///////////// 
+
+  $('.popup-edit-pokemon').magnificPopup({
+  type:'inline',
+  callbacks: {
+    open: function() {
+      el = $(this._lastFocusedEl);
+      popup = this;
+      popup_div = $('#edit_pokemon_popup');
+      pokemon_id = el.attr('data-pokemon-id');
+      pokemon_name = el.attr('data-pokemon-name');
+      pokemon_url = el.attr('data-pokemon-url');
+      species_name = el.attr('data-pokemon-species-name');
+      pokemon_cp = el.attr('data-pokemon-cp');
+      popup_div.find('#popup-species-image').html("<img class=\"thumbnail-image\" src=\""+ pokemon_url +"\" alt=\"Bulbasaur\">");
+      popup_div.find('#popup-species-name').html("<span>" + species_name + "</span>");
+      popup_div.find('#popup-nick-name').html("<input class='form-control' type='text' id='name' name='name' value='"+ pokemon_name+ "'>");
+      popup_div.find('#popup-cp').html("<input class='form-control' type='text' id='cp' name='cp' value='"+ pokemon_cp+ "'>");
+      console.log(this);
+
+      popup_div.find('#popup-form').submit(function(){
+        popup_div.find('#popup-message').html("");
+        event.preventDefault();
+        $form = $(this)
+        $.ajax({
+          url: $form.attr('action'),
+          type: 'PUT',
+          data: {pokemon_id: pokemon_id, user_id: user_id, cp: $('#cp').val(), name: $('#name').val(), quick_move: $('#quick_move').val(), charge_move: $('#charge_move').val()},
+          success: function(data){
+            console.log(data);
+            update_pokemon_card(data);
+            popup_div.find('#popup-message').html("<span style=\"color: green;\">Successfully edited this pokemon.</span>");
+            setTimeout(function(){console.log("closing popup");popup.close();}, 500);
+            
+          },
+          error: function(){
+            popup_div.find('#popup-message').html("<span style=\"color: red;\">Failed to edit this pokemon.</span>");
+            setTimeout(function(){console.log("closing popup");popup.close();}, 500);
+          }
+        });
+      });
+    },
+    close: function() {
+      // Will fire when popup is closed
+    }
+    // e.t.c.
+  }
+  });
+
+  var update_pokemon_card = function(data){
+    l = $("#owned-pokemon-list .col-pokedex[data-pokemon-id=" + data.id +"]");
+    l.find(".collection-pokemon-name").html(data.name);
+    l.find(".collection-pokemon-cp").html(data.cp || "N/A");
+    l.find(".collection-pokemon-qm").html("QM: " + (data.quick_move || "N/A") );
+    l.find(".collection-pokemon-cm").html("CM: " + (data.charge_move || "N/A") );
+  }
+  
+
+  ////add to trade list popup 
+
+  $('.popup-add-to-trade-list').magnificPopup({
+  type:'inline',
+  callbacks: {
+    open: function() {
+      el = $(this._lastFocusedEl);
+      popup = this;
+      popup_div = $('#add_to_trade_list_popup');
+      pokemon_id = el.attr('data-pokemon-id');
+      pokemon_name = el.attr('data-pokemon-name');
+      pokemon_url = el.attr('data-pokemon-url');
+      species_name = el.attr('data-pokemon-species-name');
+      pokemon_cp = el.attr('data-pokemon-cp');
+      popup_div.find('#popup-species-image').html("<img class=\"thumbnail-image\" src=\""+ pokemon_url +"\" alt=\"Bulbasaur\">");
+      popup_div.find('#popup-species-name').html("<span>" + species_name + "</span>");
+      popup_div.find('#popup-nick-name').html("<input class='form-control' type='text' id='name' name='name' value='"+ pokemon_name+ "'>");
+      popup_div.find('#popup-cp').html("<input class='form-control' type='text' id='cp' name='cp' value='"+ pokemon_cp+ "'>");
+      console.log(this);
+
+      popup_div.find('#popup-form').submit(function(){
+        popup_div.find('#popup-message').html("");
+        event.preventDefault();
+        $form = $(this)
+        $.ajax({
+          url: $form.attr('action'),
+          type: 'PUT',
+          data: {pokemon_id: pokemon_id, user_id: user_id, cp: $('#cp').val(), name: $('#name').val(), quick_move: $('#quick_move').val(), charge_move: $('#charge_move').val()},
+          success: function(data){
+            console.log(data);
+            update_pokemon_card(data);
+            popup_div.find('#popup-message').html("<span style=\"color: green;\">Successfully edited this pokemon.</span>");
+            setTimeout(function(){console.log("closing popup");popup.close();}, 500);
+            
+          },
+          error: function(){
+            popup_div.find('#popup-message').html("<span style=\"color: red;\">Failed to edit this pokemon.</span>");
+            setTimeout(function(){console.log("closing popup");popup.close();}, 500);
+          }
+        });
+      });
+    },
+    close: function() {
+      // Will fire when popup is closed
+    }
+    // e.t.c.
+  }
+  });
+
+
+  
 });
