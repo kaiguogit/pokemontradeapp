@@ -1,27 +1,175 @@
-    <table class="table listing-table">
-      <thead>
-        <th>Pokeman for Sale</th>
-        <th>I'm looking for</th>
-        <th>Price</th>
-      </thead>
-      <tbody>
-        <% @cart.listings.each do |listing|%>
-          <tr>
-          <% p = listing.pokemon %>
-          <% pt = listing.pokemon_trade %>
-          <td><div class="listing-table-td"><img src="<%= p.image_url %>"><%= p.name %></div></td>
-          <td><div class="listing-table-td"><%= pt ? "<img src=\"#{pt.image_url}\">" : nil %><%= pt ? pt.name : nil %></div></td>
-          <td><div class="listing-table-td"><%= pt ? (listing.price / 100.00).round(2) : 0 %>$</div></td>
-          <td>
-            <div class="listing-table-td">
-              <form method="post" action="/cart/listing">
-                <input type="hidden" name="_method" value="delete">
-                <input type="hidden" name="listing_id" value=<%= listing.id%>>
-                <button class="btn btn-primary">Remove</button>
+<%listings = @user.cart.listings%>
+<%current_listings = listings.where("status = 'current'")%>
+<%completed_listings = listings.where("status= 'completed'")%>
+
+<!--Current saved listings table-->
+<div class='listing-table'><h1 class='intro-text'>Bookmarked Listings</h1></div>
+<table class="table listing-table">
+  <thead>
+    <th>Pokeman for Sale</th>
+    <th>CP</th>
+    <th>Type</th>
+    <th>Quick Move</th>
+    <th>Charge Move</th>
+    <th>Seller looking for</th>
+    <th>Price</th>
+  </thead>
+  <tbody class="listing-table-body"> 
+    <% if current_listings.any? %>
+      <% current_listings.each do |listing|%> 
+        <tr>
+        <% p = listing.pokemon %>
+        <% wl = listing.wishlist %>
+          <td> <!--Pokemon for Sale-->
+            <div class=" button-tooltip">
+              <div class="button-tooltiptext">
+                <div class="popup-img"><img src="<%= p.image_url %>"></div>
+                <div class=""><p><%= p.name %></p></div>
+              </div>
+              <img src="<%= p.image_url %>" class="td-icon">
+              <div><%= p.name %></div> 
+            </div>
+          </td>
+          <td> <!-- CP -->
+            <span><%= p.cp ? p.cp : "N/A" %></span>
+          </td>
+          <td> <!--Type-->
+            <div class="species-type-wrapper">
+              <% p.species.types.each do |type|%>
+                <span class="background-color-<%= type.name.downcase %> pokemon-type-tag"><%= type.name %></span>
+              <% end %>
+            </div>
+          </td>
+          <td> <!--Quick Move-->
+            <span><%= p.quick_move ? p.quick_move.name : "N/A"%> </span>
+          </td>
+          <td> <!--Charge Move-->
+            <span><%= p.charge_move ? p.charge_move.name : "N/A"%> </span>
+          </td>
+          <td><div> <!--I'm looking for-->
+            <% wl.pokemons.each do |wl_p|%>
+              <div class="col-md-2">
+                <div class=" button-tooltip">
+                  <% if @user.pokemons.select{|p| p.species.id == wl_p.species.id}.any?%>
+                    <div class="button-tooltiptext">
+                      <div class="popup-name"><span><%= wl_p.name %></span></div>
+                      <div class="popup-img"><img src="<%= wl_p.image_url %>"></div>
+                      <div class="popup-message-own">You own this pokemon</div>
+                    </div>
+                    <img src="<%= wl_p.image_url%>" class="td-icon listings-wishlist-user-owned">
+                  <% else%>
+                    <div class="button-tooltiptext">
+                      <div class="popup-name"><span><%= wl_p.name %></span></div>
+                      <div class="popup-img"><img src="<%= wl_p.image_url %>"></div>
+                      <div class="popup-message-not-own">You don't own this.</div>
+                    </div>
+                    <img src="<%= wl_p.image_url%>" class="td-icon">
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div></td>
+          <td> <!--Price-->
+            <div><%= listing.price ? (listing.price / 100.00).round(2) : 0 %>$</div>
+          </td> 
+          <td> <!--Add to cart button-->
+            <div>
+              <form method="post" action="/checkout">
+                <input type="hidden" name="listing_id" value=<%= listing.id %>>
+                <input type="hidden" name="buyer_id" value=<%= @user.id %>>
+                <!-- <input type="hidden" name="buyer_pokemon_id" value=<%= nil %>> -->
+                <button class="btn btn-success">Check Out</button>
               </form>
             </div>
           </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </tr>
+      <% end %> 
+    <% else %> <!--no search result-->
+      <tr><td><p>No Listings in Cart</p></td><tr>
+    <% end %>
+  </tbody>
+</table>
+
+<!--completed transactions table-->
+<div class='listing-table'><h1 class='intro-text'>Completed Transactions</h1></div>
+<table class="table listing-table">
+  <thead>
+    <th>Pokeman for Sale</th>
+    <th>CP</th>
+    <th>Type</th>
+    <th>Quick Move</th>
+    <th>Charge Move</th>
+    <th>Seller looking for</th>
+    <th>Price</th>
+  </thead>
+  
+  <tbody class="listing-table-body">
+    <% if completed_listings.any? %>
+      <% completed_listings.each do |listing|%> 
+        <tr>
+        <% p = listing.pokemon %>
+        <% wl = listing.wishlist %>
+          <td> <!--Pokemon for Sale-->
+            <div class=" button-tooltip">
+              <div class="button-tooltiptext">
+                <div class="popup-img"><img src="<%= p.image_url %>"></div>
+                <div class=""><p><%= p.name %></p></div>
+              </div>
+              <img src="<%= p.image_url %>" class="td-icon">
+              <div><%= p.name %></div> 
+            </div>
+          </td>
+          <td> <!-- CP -->
+            <span><%= p.cp ? p.cp : "N/A" %></span>
+          </td>
+          <td> <!--Type-->
+            <div class="species-type-wrapper">
+              <% p.species.types.each do |type|%>
+                <span class="background-color-<%= type.name.downcase %> pokemon-type-tag"><%= type.name %></span>
+              <% end %>
+            </div>
+          </td>
+          <td> <!--Quick Move-->
+            <span><%= p.quick_move ? p.quick_move.name : "N/A"%> </span>
+          </td>
+          <td> <!--Charge Move-->
+            <span><%= p.charge_move ? p.charge_move.name : "N/A"%> </span>
+          </td>
+          <td><div> <!--I'm looking for-->
+            <% wl.pokemons.each do |wl_p|%>
+              <div class="col-md-2">
+                <div class=" button-tooltip">
+                  <% if @user.pokemons.select{|p| p.species.id == wl_p.species.id}.any?%>
+                    <div class="button-tooltiptext">
+                      <div class="popup-name"><span><%= wl_p.name %></span></div>
+                      <div class="popup-img"><img src="<%= wl_p.image_url %>"></div>
+                      <div class="popup-message-own">You own this pokemon</div>
+                    </div>
+                    <img src="<%= wl_p.image_url%>" class="td-icon listings-wishlist-user-owned">
+                  <% else%>
+                    <div class="button-tooltiptext">
+                      <div class="popup-name"><span><%= wl_p.name %></span></div>
+                      <div class="popup-img"><img src="<%= wl_p.image_url %>"></div>
+                      <div class="popup-message-not-own">You don't own this.</div>
+                    </div>
+                    <img src="<%= wl_p.image_url%>" class="td-icon">
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div></td>
+          <td> <!--Price-->
+            <div><%= listing.price ? (listing.price / 100.00).round(2) : 0 %>$</div>
+          </td> 
+          <td> <!--Add to cart button-->
+            <div>            
+              <button class="btn btn-warning">Completed</button>          
+            </div>
+          </td>
+        </tr>
+      <% end %> 
+    <% else %> <!--no search result-->
+      <tr><td><p>No Listings in Cart</p></td><tr>
+    <% end %>
+  </tbody>
+</table>

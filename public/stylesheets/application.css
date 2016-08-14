@@ -33,7 +33,7 @@
     height: 200px;
   }
 
-  #intro-text{
+  .intro-text{
     font-family: "Titillium Web",arial,sans-serif;
     font-size: 25px;
     line-height: 150%;
@@ -70,10 +70,11 @@
   #signup-form{
     background-color: rgba(255,255,255,1);
   }
-
-
-
 /*end of home page*/
+
+.dropdown-list{
+  margin: 0
+}
 
 .top_bar_list {
   margin: 0px

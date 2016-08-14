@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160812223441) do
+ActiveRecord::Schema.define(version: 20160814204804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 20160812223441) do
     t.string   "password_hash"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "wallet"
   end
 
   create_table "wishlists", force: :cascade do |t|

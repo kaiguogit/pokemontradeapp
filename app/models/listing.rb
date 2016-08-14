@@ -5,4 +5,10 @@ class Listing < ActiveRecord::Base
   has_and_belongs_to_many :carts
   has_one :wishlist
 
+  before_create :set_default_status
+
+  def set_default_status
+    self.status = 'current'
+  end
+
 end

@@ -4,7 +4,9 @@ before do
   if session[:user_id]
     @user = User.find(session[:user_id])
   else
-    @user = nil
+    @user = User.new
+    @user.cart = Cart.new 
+    session[:user_id] = @user_id
   end
   # if loggedin?
   #   @cart = User.find(session[:user_id]).cart
@@ -38,7 +40,7 @@ post '/login' do
   if user && user.password == params[:password]
     session[:user_id] = user.id
     @username = user.username
-    redirect '/profile'
+    redirect '/pokedex'
   else
     flash[:notice] = "Username or password you entered is not correct."
     redirect '/'
@@ -67,12 +69,12 @@ get '/profile/tradelist' do
   erb :'users/tradelist'
 end
 
-post '/search' do
+post '/listings' do
   # flash[:keyword] = params[:keyword]
-  redirect "/search?keyword=#{params[:keyword]}"
+  redirect "/listings?keyword=#{params[:keyword]}"
 end
 
-get '/search' do
+get '/listings' do
   erb :'listings/index', locals: {keyword: params[:keyword], show_all: "false"}
 end
 
@@ -117,15 +119,9 @@ end
 #   redirect '/pokedex'
 # end 
 
-get '/listings/index' do
-
-  erb :'listings/index'
-end
-
-
 post '/listings/add_to_cart' do 
-  @cart.listings << Listing.find(params[:listing_id])
-  redirect '/carts/show'
+  @user.cart.listings << Listing.find(params[:listing_id])
+  redirect '/carts'
 end
 
 delete '/cart/listing' do
@@ -133,7 +129,31 @@ delete '/cart/listing' do
   redirect :'/carts/show'
 end
 
-get '/carts/show' do
+get '/carts' do
+  @cart = @user.cart 
   erb :'/carts/show'
 end
 
+post '/checkout' do
+  listing = Listing.find(params[:listing_id])
+  seller = listing.user 
+  seller_pokemon = listing.pokemon
+  buyer = User.find(params[:buyer_id])
+  price = listing.price
+  # buyer_pokemon = Pokemon.find(params[:buyer_pokemon_id])
+  
+  if buyer.wallet >= price
+    buyer.wallet -= price
+    buyer.save
+    seller.wallet += price
+    seller.save
+    seller_pokemon.user = buyer 
+    seller_pokemon.save
+    # buyer_pokemon.user = seller
+    listing.status = 'completed' 
+    listing.save
+    redirect '/carts'
+  else #transaction failed
+    # do something
+  end
+end

@@ -5,7 +5,14 @@ class User < ActiveRecord::Base
 
   has_many :pokemons
   has_one :cart
-  has_one :user_wish_list 
+  has_one :user_wish_list
+  has_many :listings 
+
+  before_create :add_wallet
+
+  def add_wallet
+    self.wallet = 0 
+  end 
 
   def password
     @password ||= Password.new(password_hash)
