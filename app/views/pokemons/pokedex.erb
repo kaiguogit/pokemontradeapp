@@ -2,12 +2,7 @@
 <div class="row search-bars">
   <div class="col-md-offset-4 col-md-5">
     <label for="search-bar-pokedex">Search by Name</label>
-    <select data-placeholder="Choose a name..." class="chosen-select col-md-6" id="search-bar-pokedex" style="width: 500px;" multiple tabindex="2">
-      <option value=""></option>
-      <% Species.all.order(:name).each do |species|%>
-        <option><%= species.name %></option>>
-      <% end %>
-    </select>
+       <input type="text" class="form-control" id="search-bar-pokedex" placeholder="Search">
   </div>
   <div class="col-md-3">
     <label for="type-bar-pokedex">Search by Type</label>
