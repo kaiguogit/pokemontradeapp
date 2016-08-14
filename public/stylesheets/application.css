@@ -164,8 +164,13 @@ max-width: 1024px;
     margin:0px 0px 10px 0px;
     padding:10px 0px;
 }
-
-#search_bar_pokedex_chosen, #type_bar_pokedex_chosen{
+.search-bar-pokedex-label{
+  margin-bottom: 5px;
+}
+.type-bar-pokedex-label{
+  display:block;
+}
+#type_bar_pokedex_chosen{
     border: 3px solid #616161;
     margin-top: 0.325em;
     background-color: #fff;

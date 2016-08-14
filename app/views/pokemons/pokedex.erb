@@ -1,16 +1,11 @@
 <!--search/filter-->
 <div class="row search-bars">
   <div class="col-md-offset-4 col-md-5">
-    <label for="search-bar-pokedex">Search by Name</label>
-    <select data-placeholder="Choose a name..." class="chosen-select col-md-6" id="search-bar-pokedex" style="width: 500px;" multiple tabindex="2">
-      <option value=""></option>
-      <% Species.all.order(:name).each do |species|%>
-        <option><%= species.name %></option>>
-      <% end %>
-    </select>
+    <label class="search-bar-pokedex-label" for="search-bar-pokedex">Search by Name</label>
+       <input type="text" class="form-control" id="search_bar_pokedex" placeholder="Search">
   </div>
   <div class="col-md-3">
-    <label for="type-bar-pokedex">Search by Type</label>
+    <label class="type-bar-pokedex-label" for="type-bar-pokedex">Search by Type</label>
     <select data-placeholder="Choose a type..." class="chosen-select col-md-6" id="type-bar-pokedex" style="width: 200px;" multiple tabindex="2">
       <option value=""></option>
       <% Type.all.order(:name).each do |type|%>
@@ -57,6 +52,3 @@
   <% end%>
 </div>
 
-<!--Popup Add Pokemon From-->
-
-<a href="/pokemon/add/1" class="popup-ajax"> Show inline popup</a>
