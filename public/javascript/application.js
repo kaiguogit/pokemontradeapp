@@ -121,12 +121,14 @@ var remove_from_wish_list = function(species_id,wish_list){
   }
 }
 
-var update_to_wishlist = function(species_id) {
+var update_to_wishlist = function(species_id,ele) {
     $.ajax({
       url: '/api/user/' + user_id + '/wishlist',
       type: 'POST',
       data: { species_id: species_id },
       success: function(wish_list) {
+        ele.attr('data-disabled',"false");
+        ele.html('<span class=\'glyphicon glyphicon-heart\'></span>');
         wrap_species_wishlist_button(species_id, wish_list);
         remove_from_wish_list(species_id, wish_list);
       },
@@ -139,8 +141,18 @@ var update_to_wishlist = function(species_id) {
 
   $('a.wish_list_button').click(function() {
     event.preventDefault();
+
+    if($(this).attr('data-disabled') == "true"){
+      return false;
+    }
+
+    var ele = $(this);
+
     var species_id = $(this).attr('data-species-id');
-    update_to_wishlist(species_id);
+    //http://preloaders.net/en/free
+    $(this).html('<img id=\"#loader-icon\" src=\"/images/loader-icon36-36.gif\">')
+    $(this).attr('data-disabled',"true");
+    update_to_wishlist(species_id,ele);
   });
 
  $('a.tab-link').click(function(){
@@ -161,17 +173,47 @@ var update_to_wishlist = function(species_id) {
 });
 
 jQuery(document).ready(function($) {
+  var user_id = $('body').attr('data-user-id');
+
+
   $('.popup-ajax').magnificPopup({
-  type:'ajax'
-  // midClick: true,
-  // ajax: {
-  //   settings:{
-  //     method: "GET",
-  //     url: "/pokemon/add/1",
-  //     success: function(){
-  //       console.log("success!")
-  //     }
-  //   }
-  // }
+  type:'inline',
+  callbacks: {
+    open: function() {
+      el = $(this._lastFocusedEl);
+      popup = this;
+      species_id = el.attr('data-species-id');
+      species_name = el.attr('data-species-name');
+      species_url = el.attr('data-species-url');
+      $('#popup-add-to-collection-image').html("<img class=\"thumbnail-image\" src=\""+ species_url +"\" alt=\"Bulbasaur\">");
+      $('#popup-add-to-collection-name').html("<span>" + species_name + "</span>");
+      console.log(this);
+
+      $('#popup-add-to-collection-form').submit(function(){
+        $('#popup-add-to-collection-message').html("");
+        event.preventDefault();
+        $form = $(this)
+        $.ajax({
+          url: $form.attr('action'),
+          type: 'POST',
+          data: {species_id: species_id, user_id: user_id, cp: $('#cp').val(), name: $('#name').val(), quick_move: $('#quick_move').val(), charge_move: $('charge_move').val()},
+          success: function(data){
+            console.log(data);
+            $('#popup-add-to-collection-message').html("<span style=\"color: green;\">Successfully added to collection.</span>");
+            setTimeout(function(){console.log(1);popup.close();}, 2000);
+            
+          },
+          error: function(){
+            $('#popup-add-to-collection-message').html("<span style=\"color: red;\">Failed to added to collection.</span>");
+            setTimeout(function(){console.log(1);popup.close();}, 2000);
+          }
+        });
+      });
+    },
+    close: function() {
+      // Will fire when popup is closed
+    }
+    // e.t.c.
+  }
   });
 });

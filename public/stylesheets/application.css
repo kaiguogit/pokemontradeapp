@@ -343,3 +343,18 @@ body{
 
 }
 
+.white-popup {
+  position: relative;
+  background: #FFF;
+  padding: 20px;
+  /*width: auto;*/
+  /*max-width: 500px;*/
+  margin: 20px auto;
+  height: 800px; 
+  width:800px; 
+  margin: auto;
+}
+
+.chosen-container.chosen-container-single {
+    width: 200px !important; /* or any value that fits your needs */
+}
