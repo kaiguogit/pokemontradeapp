@@ -24,7 +24,7 @@
 
       <% if loggedin? %>
       <ul class="nav navbar-nav navbar-right"> 
-        <li class='top_bar_list'><a href = "/carts/show"><span class='glyphicon glyphicon-user'></span> <%="#{User.find(session[:user_id]).username}"%></a></li>
+        <li class='top_bar_list'><a href = "/profile#owned-pokemon-list"><span class='glyphicon glyphicon-user'></span> <%="#{User.find(session[:user_id]).username}"%></a></li>
         <li class='top_bar_list'><a href = "/carts/show"><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li>
         <li class="dropdown top_bar_list">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

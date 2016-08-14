@@ -102,7 +102,7 @@ var filter_pokemon = function(){
   }
 
 var wrap_species_wishlist_button = function(species_id,wish_list){
-  l = $(".col-pokedex[data-species-id=" + species_id +"]");
+  l = $("#pokedex .col-pokedex[data-species-id=" + species_id +"]");
   if (wish_list.indexOf(species_id) != -1){
     l.find('.wish_list_button').addClass("wish_list_button_liked");
     l.find('.wish_list_button_wrapper span.button-tooltiptext').text("Remove from Wishlist");
@@ -113,24 +113,48 @@ var wrap_species_wishlist_button = function(species_id,wish_list){
   }
 }
 
-var add_to_wishlist = function(species_id) {
+var remove_from_wish_list = function(species_id,wish_list){
+  l = $("#wish-list .col-pokedex[data-species-id=" + species_id +"]");
+  if (wish_list.indexOf(species_id) == -1){
+    l.hide();
+  }
+}
+
+var update_to_wishlist = function(species_id) {
     $.ajax({
       url: '/api/user/' + user_id + '/wishlist',
       type: 'POST',
       data: { species_id: species_id },
       success: function(wish_list) {
-        wrap_species_wishlist_button(species_id,wish_list);
+        wrap_species_wishlist_button(species_id, wish_list);
+        remove_from_wish_list(species_id, wish_list);
       },
       error: function() {
       }
     });
   }
 
+
+
   $('a.wish_list_button').click(function() {
     event.preventDefault();
     var species_id = $(this).attr('data-species-id');
-    add_to_wishlist(species_id);
+    update_to_wishlist(species_id);
   });
+
+ $('a.tab-link').click(function(){
+  $(this).parent().siblings().removeClass('active');
+  $(this).parent().addClass('active');
+ });
+  
+  // Will only work if string in href matches with location
+  
+
+  // // Will also work for relative and absolute hrefs
+  // $('ul.nav a').filter(function() {
+  //     return this.href == url;
+  // }).parent().addClass('active');
+
 
 
 });

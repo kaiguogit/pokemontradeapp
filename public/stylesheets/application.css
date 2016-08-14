@@ -320,5 +320,21 @@ body{
   /*display: none;*/
 }
 
+.tabs > div{
+  display: none;
+}
 
+.tabs > div:target {
+  display: block;
+}
+
+#owned-pokemon-list{
+
+}
+#trade-list{
+
+}
+#wish-list{
+
+}
 
