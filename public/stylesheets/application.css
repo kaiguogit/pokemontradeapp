@@ -1,10 +1,79 @@
+/*home page*/
+  #home{    
+    margin: auto;
+    min-width: 100vh;
+    min-height: 100vw;
+    margin-top: -20px;
+    background: url("/icons/vancouver.jpg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    overflow: auto;
+    }
 
-#home_logo {
-  position: relative;
-  display: block;
-  margin: 0 auto;
-  height: 200px;
-}
+  #home-content{
+    background-color: rgba(255,255,255,0.9);
+    border-color: #06204C;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #06204C;
+    border-width: 3px;
+  }
+
+  .height_40px{
+    height: 40px
+  }
+
+  #home_logo {
+    position: relative;
+    display: block;
+    margin: auto;
+    margin-top: 40px;
+    height: 200px;
+  }
+
+  #intro-text{
+    font-family: "Titillium Web",arial,sans-serif;
+    font-size: 25px;
+    line-height: 150%;
+    margin-top: 20px;
+  }
+
+  #intro-text.parent{
+    font-family: "Titillium Web",arial,sans-serif;
+  }
+
+  #feature-text{
+    font-size: 20px;
+    line-height: 150%;
+    font-family: 'titillium web';
+    display: table;
+  }
+
+  #feature-text div{    
+    display: table-row;
+  }
+
+  #feature-text *{
+    padding: 15px;
+    margin: 0
+  }
+
+  #feature-text span{
+    font-size: 30px;
+    margin: 20px;
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  #signup-form{
+    background-color: rgba(255,255,255,1);
+  }
+
+
+
+/*end of home page*/
 
 .top_bar_list {
   margin: 0px
