@@ -347,14 +347,27 @@ body{
   position: relative;
   background: #FFF;
   padding: 20px;
-  /*width: auto;*/
-  /*max-width: 500px;*/
+  width: auto;
+  max-width: 500px;
   margin: 20px auto;
-  height: 800px; 
-  width:800px; 
+  height: 559px; 
+  width:500px; 
   margin: auto;
+  text-align:center;
 }
+.white-popup div{
+  margin:auto;
+}
+.white-popup #popup-add-to-collection-form{
+  text-align:left;
+}
+.white-popup .popup-title{
+  font-size:2em;
+}
+/*.white-popup #popup-add-to-collection-button{
+  color:#8ac878;
+}*/
 
 .chosen-container.chosen-container-single {
-    width: 200px !important; /* or any value that fits your needs */
+    min-width: 200px !important; /* or any value that fits your needs */
 }

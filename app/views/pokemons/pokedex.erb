@@ -1,4 +1,4 @@
-<!--search/filter-->
+ <!--search/filter-->
 <div class="row search-bars">
   <div class="col-md-offset-4 col-md-5">
     <label class="search-bar-pokedex-label" for="search-bar-pokedex">Search by Name</label>
@@ -15,40 +15,203 @@
   </div>
 </div>
 
-<div class="container wrapper" id="pokedex">
 
-  <!-- pokemon cards -->
+<!-- Tabs -->
+  <div>
+    <ul class="nav nav-pills nav-justified">
+      <li role='presentation' class="active"><a class="tab-link" href="#pokedex">All Pokemons</a></li>
+      <li role='presentation' class="active"><a class="tab-link" href="#owned-pokemon-list">Your Pokemons</a></li>
+      <li role='presentation'><a class="tab-link" href="#wish-list">Wishlist</a></li>
+      <li role='presentation'><a class="tab-link" href="#trade-list">Trade List</a></li>
+    </ul>
+  </div>
 
-  <% Species.all.each do |s| %>
-    <div class="col-md-2 col-pokedex" data-species-id="<%= s.id %>" >
-      <div class="thumbnail">
-        <div class= "thumbnail-wrapper">
-          <img class="thumbnail-image" src="<%= s.image_url %>" alt="<%= s.name %>" >
-        </div>
 
-        <div class="thumbnail-actions">
+
+<div class="container wrapper tabs" >
+
+  <div id="pokedex">
+    <!-- pokemon cards -->
+
+    <% Species.all.each do |s| %>
+      <div class="col-md-2 col-pokedex" data-species-id="<%= s.id %>" >
+        <div class="thumbnail">
+          <div class= "thumbnail-wrapper">
+            <img class="thumbnail-image" src="<%= s.image_url %>" alt="<%= s.name %>" >
+          </div>
+
+          <div class="thumbnail-actions">
             <div class="button-tooltip add_to_collection_button_wrapper">
               <span class="button-tooltiptext">Add to My Collection</span>
-              <a href="pokemon/add/<%= s.id %>" class="add_to_profile_button popup-ajax" ></a>
+              <a href="#test-popup" class="add_to_profile_button popup-ajax" data-species-id= <%="\"#{s.id}\""%> data-species-name= <%="\"#{s.name}\""%>
+              data-species-url= <%="\"#{s.image_url}\""%>
+              ></a>
             </div>
             <div class="button-tooltip wish_list_button_wrapper">
               <span class="button-tooltiptext">Add to My Wishlist</span>
-              <a class="wish_list_button" href="" data-species-id="<%= s.id %>" ><span class='glyphicon glyphicon-heart'></span></a>   
+              <a class="wish_list_button" href="" data-species-id="<%= s.id %>" data-disabled="false" >
+                <span class='glyphicon glyphicon-heart'></span>
+              </a>   
+            </div>  
+          </div>
+
+          <div class="caption">
+            <%= s.name %>
+          </div>
+
+          <div class="species-type-wrapper">
+            <% s.types.each do |type|%>
+              <span class="background-color-<%= type.name.downcase %> pokemon-type-tag"><%= type.name %></span>
+            <% end %>
+          </div>
+
+        </div>
+      </div>
+    <% end%>
+  </div>
+
+  <!-- You pokemons -->
+  <!--  -->
+  <div class="panel-body" id="owned-pokemon-list">
+    <div class="row">
+      <% @user.pokemons.each do |pokemon|%>
+        <div class="col-md-2 col-pokedex">
+          <div class="thumbnail">
+            <div class= "thumbnail-wrapper">
+              <img class="thumbnail-image" src="<%= pokemon.image_url %>" alt="<%= pokemon.name %>" >
             </div>
-        </div>
+            <div class="notch-collectibles-small thumbnail-actions">
+              <div class="collectibles-wrapper" data-collectibles-slug="bulbasaur" data-slug="bulbasaur">   
+                <!--buttons-->
+                <a href="pokemon/add/<%= pokemon.id %>"><span class='glyphicon glyphicon-transfer'></span></a>
+                <a href="link to add wishlist page"><span class='glyphicon glyphicon-cog'></span></a>  
+              </div>
+            </div>
+            <div class="caption">
+              <%= pokemon.name %>
+            </div>
 
-        <div class="caption">
-          <%= s.name %>
-        </div>
+            <div class="species-type-wrapper">
+              <% pokemon.species.types.each do |type|%>
+              <span class="background-color-<%= type.name.downcase %> pokemon-type-tag"><%= type.name %></span>
+              <% end %>
+            </div>
 
-        <div class="species-type-wrapper">
-          <% s.types.each do |type|%>
-            <span class="background-color-<%= type.name.downcase %> pokemon-type-tag"><%= type.name %></span>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <!-- Wist List -->
+      <div id="wish-list">
+        <div class="panel-body">
+          <div class="row">
+            <% @user.user_wish_list.pokemons.each do |pokemon|%>
+              <div class="col-md-2 col-pokedex" data-species-id="<%= pokemon.species.id %>">
+                <div class="thumbnail">
+                  <div class= "thumbnail-wrapper">
+                    <img class="thumbnail-image" src="<%= pokemon.image_url %>" alt="<%= pokemon.name %>" >
+                  </div>
+
+                  <div class="thumbnail-actions">
+                      <div class="button-tooltip wish_list_button_wrapper">
+                        <span class="button-tooltiptext">Remove from Wishlist</span>
+                        <a class="wish_list_button" href="" data-species-id="<%= pokemon.species.id %>" ><span class='glyphicon glyphicon-remove-sign'></span></a>   
+                      </div>
+                  </div>
+
+                  <div class="caption">
+                    <%= pokemon.species.name %>
+                  </div>
+
+                  <div class="species-type-wrapper">
+                    <% pokemon.species.types.each do |type|%>
+                    <span class="background-color-<%= type.name.downcase %> pokemon-type-tag"><%= type.name %></span>
+                    <% end %>
+                  </div>
+
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+  <!-- Trade List -->
+
+      <div id="trade-list">
+        asdfasdf
+      </div>
+
+
+
+  <!-- Before wrapper end  -->
+</div>
+
+
+
+<!-- Popup page -->
+<!--  -->
+<div  class="white-popup fp-hide" id="test-popup">
+<span class="popup-title"> Customize your pokemon. </span>
+<!-- Image on the left -->
+<div id="popup-add-to-collection-image">
+
+</div>
+
+
+<!-- form table on the right-->
+<div id="popup-add-to-collection-name">
+  
+</div>
+
+<!-- panel with form with three input fields -->
+<div class='col-sm-offset-1 col-sm-10'>
+  <div class='panel panel-default'>
+    <form class='form-horizontal panel-body' id="popup-add-to-collection-form" method="post" action='api/user/<%= session[:user_id] %>/pokemons'>
+      <!-- default inputs-->
+      <input type="hidden" name="species_id" value='<%= @user.id %>'>
+      <input type="hidden" name="user_id" value='<%= session[:user_id] %>'>
+      <!-- custom inputs-->
+      <div class='form-group'>
+        <label for='name' class='col-sm-2 control-lable'>Nick Name:</label>
+        <div class='col-sm-10' id="popup-add-to-collection-nick-name">
+          <input class='form-control' type='text' id='name' name='name' value='<%= @user.id %>'>
+        </div>
+      </div>
+      <div class='form-group'>
+        <label for='cp' class='col-sm-2 control-lable'>CP:</label>
+        <div class='col-sm-10'>
+          <input class='form-control' type='text' id='cp' name='cp'>
+        </div>
+      </div>
+      <div class='form-group'>
+        <label for='quick_move' class='col-sm-2 control-lable'>Quick Move:</label>
+        <div class='col-sm-10'>
+          <select data-placeholder="Choose a Quick Move..." class="form-control chosen-select" id='quick_move'  name='quick_move'>
+          <% Move.all.each do |move|%>
+            <option><%= move.name%></option>
           <% end %>
+          </select>
         </div>
 
       </div>
-    </div>
-  <% end%>
+      <div class='form-group'>
+        <label for='charge_move' class='col-sm-2 control-lable'>Charge Move:</label>
+        <div class='col-sm-10'>
+          <select data-placeholder="Choose a Charge Move..." class="form-control chosen-select" id='charge_move' name='charge_move'>
+          <% Move.all.each do |move|%>
+            <option><%= move.name%></option>
+          <% end %>
+          </select>
+        </div>
+      </div>
+      <button class='btn btn-success col-sm-offset-5 col-sm-3' id="popup-add-to-collection-button" type='submit'>Submit</button><div id="popup-add-to-collection-message"></div>
+    </form> 
+  </div>
 </div>
+</div>
+
+
+
 

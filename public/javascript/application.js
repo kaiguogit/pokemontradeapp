@@ -187,6 +187,7 @@ jQuery(document).ready(function($) {
       species_url = el.attr('data-species-url');
       $('#popup-add-to-collection-image').html("<img class=\"thumbnail-image\" src=\""+ species_url +"\" alt=\"Bulbasaur\">");
       $('#popup-add-to-collection-name').html("<span>" + species_name + "</span>");
+      $('#popup-add-to-collection-nick-name').html("<input class='form-control' type='text' id='name' name='name' value='"+ species_name+ "'>");
       console.log(this);
 
       $('#popup-add-to-collection-form').submit(function(){
