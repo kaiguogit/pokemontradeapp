@@ -375,5 +375,12 @@ jQuery(document).ready(function($) {
   });
 
 
+// find URL of current page
+  var url = window.location;
+  // Will only work if string in href matches with location
+  $('ul.nav a[href="'+ url.pathname + url.hash +'"]').parent().addClass('active');
+
+
+
   
 });

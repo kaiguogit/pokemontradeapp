@@ -29,7 +29,7 @@
 # create user password
   u.password = 'test'
 # set user wallet amount to $10
-  u.wallet = 1000
+  u.wallet = 10000
 # save
   u.save
 
