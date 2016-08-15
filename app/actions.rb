@@ -5,7 +5,8 @@ before do
     @user = User.find(session[:user_id])
   else
     @user = User.new
-    @user.cart = Cart.new 
+    @user.cart = Cart.new
+    @user.user_wish_list = UserWishList.new 
     session[:user_id] = @user_id
   end
   # if loggedin?
