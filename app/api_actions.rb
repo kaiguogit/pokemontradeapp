@@ -122,7 +122,9 @@ namespace '/api' do
         json result
       else #transaction failed
         # do something
-        puts "didnt succeed"
+        result = {}
+        result["message"]="You are out of money"
+        json result
       end
     end
 

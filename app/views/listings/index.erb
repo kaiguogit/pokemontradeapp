@@ -1,7 +1,10 @@
 <%= erb :'/search_bar'%>
-<% search_results = Listing.all %>
+<%listings = Listing.all%>
+<%current_listings = listings.where("status = 'current'")%>
+
+<% search_results = current_listings %>
 <% if params[:keyword] %>
-  <% search_results = Listing.joins(:pokemon).where("pokemons.name ILIKE '%#{params[:keyword]}%'") %> 
+  <% search_results = current_listings.where("pokemons.name ILIKE '%#{params[:keyword]}%'") %> 
 <% end %>
 
 <table class="table listing-table">
@@ -17,17 +20,17 @@
   <tbody class="listing-table-body">
     <% if search_results.any? %>
       <% search_results.each do |listing|%> 
-        <tr>
+        <tr class="listing-table-row">
         <% p = listing.pokemon %>
         <% wl = listing.wishlist %>
           <td> <!--Pokemon for Sale-->
             <div class=" button-tooltip">
               <div class="button-tooltiptext">
                 <div class="popup-img"><img src="<%= p.image_url %>"></div>
-                <div class=""><p><%= p.name %></p></div>
+                <div><p><%= p.name %></p></div>
               </div>
               <img src="<%= p.image_url %>" class="td-icon">
-              <div><%= p.name %></div> 
+              <div class="pokemon-for-sale-name"><%= p.name %></div> 
             </div>
           </td>
           <td> <!-- CP -->

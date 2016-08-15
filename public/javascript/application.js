@@ -44,18 +44,35 @@ var filter_pokemon = function(){
       var type_filter = type_input.val();
       var lis = $('.col-pokedex');
       lis.each(function(i,l){
-      var $l = $(l)
-      var name = $l.find('.caption').html().trim();
-      // var type = $l.find('[class^=background-color-]');
-      var types = $l.find('[class^=background-color]');
- 
-      if (name.toUpperCase().indexOf(name_filter) == 0 && filter_type(types, type_filter)){
-        $l.show();
-      }
-      else{
-        $l.hide();
-      }
-    });
+        var $l = $(l)
+        if($l.find('.caption').length == 0){
+          return true;
+        }
+        var name = $l.find('.caption').html().trim();
+        // var type = $l.find('[class^=background-color-]');
+        var types = $l.find('[class^=background-color]');
+   
+        if (name.toUpperCase().indexOf(name_filter) == 0 && filter_type(types, type_filter)){
+          $l.show();
+        }
+        else{
+          $l.hide();
+        }
+      });
+      var lis = $('.listing-table-row');
+      lis.each(function(i,l){
+        var $l = $(l)
+        var name = $l.find('.pokemon-for-sale-name').html().trim();
+        // var type = $l.find('[class^=background-color-]');
+        var types = $l.find('[class^=background-color]');
+   
+        if (name.toUpperCase().indexOf(name_filter) == 0 && filter_type(types, type_filter)){
+          $l.show();
+        }
+        else{
+          $l.hide();
+        }
+      });
   }
 
   var filter_type = function(types, type_filter){
@@ -471,7 +488,12 @@ jQuery(document).ready(function($) {
           success: function(data){
             console.log(data);
             // console.log("added to trade list");
-            popup_div.find('#popup-message').html("<span style=\"color: green;\">"+ data.message +".</span>");
+            if(data.message == "Success"){
+             popup_div.find('#popup-message').html("<span style=\"color: green;\">"+ data.message +".</span>");
+            }
+            if(data.message == "You are out of money"){
+              alert(data.message);
+            }
             // if(data.message != null){
             //   alert(data.message);
             // }

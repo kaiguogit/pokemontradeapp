@@ -18,7 +18,7 @@
   <tbody class="listing-table-body"> 
     <% if current_listings.any? %>
       <% current_listings.each do |listing|%> 
-        <tr data-listing-id="<%=listing.id%>" class="listing-row">
+        <tr data-listing-id="<%=listing.id%>" class="listing-row listing-table-row">
         <% p = listing.pokemon %>
         <% wl = listing.wishlist %>
           <td> <!--Pokemon for Sale-->
@@ -28,7 +28,7 @@
                 <div class=""><p><%= p.name %></p></div>
               </div>
               <img src="<%= p.image_url %>" class="td-icon">
-              <div><%= p.name %></div> 
+              <div class="pokemon-for-sale-name"><%= p.name %></div> 
             </div>
           </td>
           <td> <!-- CP -->
@@ -107,7 +107,7 @@
   <tbody class="listing-table-body">
     <% if completed_listings.any? %>
       <% completed_listings.each do |listing|%> 
-        <tr>
+        <tr class="listing-table-row">
         <% p = listing.pokemon %>
         <% wl = listing.wishlist %>
           <td> <!--Pokemon for Sale-->
@@ -117,7 +117,7 @@
                 <div class=""><p><%= p.name %></p></div>
               </div>
               <img src="<%= p.image_url %>" class="td-icon">
-              <div><%= p.name %></div> 
+              <div class="pokemon-for-sale-name"><%= p.name %></div> 
             </div>
           </td>
           <td> <!-- CP -->
@@ -200,9 +200,9 @@
         <div class="thumbnail">
           <div class= "thumbnail-wrapper">
           </div>
-          <div class="caption collection-pokemon-name">
+          <div class=" collection-pokemon-name">
           </div>
-          <div class="caption collection-pokemon-cp">
+          <div class=" collection-pokemon-cp">
           </div>
           <div class="species-type-wrapper">
           </div>
