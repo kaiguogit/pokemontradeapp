@@ -23,7 +23,8 @@
   u.user_wish_list = UserWishList.new 
 # add pokemons to wishlist
   u.user_wish_list.pokemons << Pokemon.create(species: Species.find(1))
-  u.user_wish_list.pokemons << Pokemon.create(species: Species.find(2))
+  u.user_wish_list.pokemons << Pokemon.create(species: Species.find(6))
+  u.user_wish_list.pokemons << Pokemon.create(species: Species.find(8))
 # create a cart for user
   u.cart = Cart.create
 # create user password
@@ -36,13 +37,24 @@
 # create user seller 
   s = User.create(username: 'Seller', email: 'seller@email.com', password: 'seller')
 
+  rand_array = [rand(1..151),rand(1..151),rand(1..151), rand(1..151)]
 
 # add pokemons to user profile
-  u.pokemons.create(name:"Pikachu", cp: 100, species: Species.find_by(name: 'Pikachu'))
-  u.pokemons.create(name:"Wartortle", cp: 50, species: Species.find_by(name: 'Wartortle'))
+  u.pokemons.create(name:"My Pikachu", cp: 100, species: Species.find(rand_array[0]),\
+    quick_move: Move.where("move_type = 'quick_move'").sample, \
+      charge_move: Move.where("move_type = 'charge_move'").sample)
+  u.pokemons.create(cp: 50, species: Species.find(rand_array[1]),\
+    quick_move: Move.where("move_type = 'quick_move'").sample, \
+      charge_move: Move.where("move_type = 'charge_move'").sample)
+  u.pokemons.create(cp: 50, species: Species.find(rand_array[2]),\
+    quick_move: Move.where("move_type = 'quick_move'").sample, \
+      charge_move: Move.where("move_type = 'charge_move'").sample)
+    u.pokemons.create(cp: 50, species: Species.find(rand_array[3]),\
+    quick_move: Move.where("move_type = 'quick_move'").sample, \
+      charge_move: Move.where("move_type = 'charge_move'").sample)
 
 # add 10 random listings
-  10.times do 
+  5.times do 
     l =  Listing.new
     l.user = s
     l.pokemon =  Pokemon.create(species: Species.find(rand(1..151)),cp: rand(1..2000),\
@@ -50,7 +62,29 @@
       charge_move: Move.where("move_type = 'charge_move'").sample)
     
     l.wishlist = Wishlist.create
-    l.wishlist.pokemons << Pokemon.create(cp: rand(1..2000), species: Species.find_by(name: "Pikachu"),\
+    (0..rand(1..3)).each do |i| 
+    l.wishlist.pokemons << Pokemon.create(cp: rand(1..2000), species: Species.find(rand_array[i]),\
+      quick_move: Move.where("move_type = 'quick_move'").sample, \
+      charge_move: Move.where("move_type = 'charge_move'").sample)
+    end
+    4.times do 
+      l.wishlist.pokemons << Pokemon.create(species: Species.find(rand(1..151)),cp: rand(1..2000),\
+      quick_move: Move.where("move_type = 'quick_move'").sample, \
+      charge_move: Move.where("move_type = 'charge_move'").sample)
+    end
+    l.wishlist.shuffle_list!
+    l.price = rand(500..3000)
+    l.save
+  end
+  3.times do 
+    l =  Listing.new
+    l.user = s
+    l.pokemon =  Pokemon.create(species: Species.find(rand(1..151)),cp: rand(1..2000),\
+      quick_move: Move.where("move_type = 'quick_move'").sample, \
+      charge_move: Move.where("move_type = 'charge_move'").sample)
+    
+    l.wishlist = Wishlist.create
+    l.wishlist.pokemons << Pokemon.create(cp: rand(1..2000), species: Species.find(55),\
       quick_move: Move.where("move_type = 'quick_move'").sample, \
       charge_move: Move.where("move_type = 'charge_move'").sample)
 
@@ -59,6 +93,29 @@
       quick_move: Move.where("move_type = 'quick_move'").sample, \
       charge_move: Move.where("move_type = 'charge_move'").sample)
     end
+    l.wishlist.shuffle_list!
+    l.price = rand(500..3000)
+    l.save
+  end
+
+  3.times do 
+    l =  Listing.new
+    l.user = s
+    l.pokemon =  Pokemon.create(species: Species.find(rand(1..151)),cp: rand(1..2000),\
+      quick_move: Move.where("move_type = 'quick_move'").sample, \
+      charge_move: Move.where("move_type = 'charge_move'").sample)
+    
+    l.wishlist = Wishlist.create
+    l.wishlist.pokemons << Pokemon.create(cp: rand(1..2000), species: Species.find(88),\
+      quick_move: Move.where("move_type = 'quick_move'").sample, \
+      charge_move: Move.where("move_type = 'charge_move'").sample)
+
+    4.times do 
+      l.wishlist.pokemons << Pokemon.create(species: Species.find(rand(1..151)),cp: rand(1..2000),\
+      quick_move: Move.where("move_type = 'quick_move'").sample, \
+      charge_move: Move.where("move_type = 'charge_move'").sample)
+    end
+    l.wishlist.shuffle_list!
     l.price = rand(500..3000)
     l.save
   end

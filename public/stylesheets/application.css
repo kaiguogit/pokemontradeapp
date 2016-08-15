@@ -124,6 +124,13 @@
     height: 204px;
 }
 
+#trade-list .remove-listing-button {
+    height: initial;
+    /* width: initial; */
+    top: initial;
+    left: initial;
+}
+    
 
 .listing-table-body .button-tooltip .button-tooltiptext .popup-img{
   height: 75%;
@@ -535,8 +542,16 @@ body{
   width: 1000px;
   height: 500px;
   border-color: black;
+  background-color: white;
 }
 
 .text_center{
   text-align: center;
+}
+.popup-checkout-trade-in-wrapper{
+  text-align:center;
+}
+.popup-checkout-form-wrapper{
+  width:50%;
+  margin:auto;
 }

@@ -308,9 +308,9 @@ jQuery(document).ready(function($) {
           type: 'POST',
           data: {species_id: species_id, user_id: user_id, cp: $('#cp').val(), name: $('#name').val(), quick_move: $('#quick_move').val(), charge_move: $('charge_move').val()},
           success: function(data){
-            popup_div.find('#popup-message').html("<span style=\"color: green;\">Successfully added to collection.</span>");
+            popup_div.find('#popup-message').html("<span style=\"color: green;\">Success.</span>");
             setTimeout(function(){console.log(1);popup.close();}, 2000);
-            
+            location.reload();
           },
           error: function(){
             popup_div.find('#popup-message').html("<span style=\"color: red;\">Failed to added to collection.</span>");
@@ -358,7 +358,7 @@ jQuery(document).ready(function($) {
           success: function(data){
             console.log(data);
             update_pokemon_card(data);
-            popup_div.find('#popup-message').html("<span style=\"color: green;\">Successfully edited this pokemon.</span>");
+            popup_div.find('#popup-message').html("<span style=\"color: green;\">Success.</span>");
             setTimeout(function(){console.log("closing popup");popup.close();}, 500);
             
           },
@@ -422,12 +422,12 @@ jQuery(document).ready(function($) {
           success: function(data){
             console.log(data);
             console.log("added to trade list");
-            popup_div.find('#popup-message').html("<span style=\"color: green;\">"+ data.message +".</span>");
+            popup_div.find('#popup-message').html("<span style=\"color: green;\">"+ "Success" +".</span>");
             if(data.message != null){
               alert(data.message);
             }
             setTimeout(function(){console.log("closing popup");popup.close();}, 500);
-            
+            location.reload();
           },
           error: function(){
             popup_div.find('#popup-message').html("<span style=\"color: red;\">Failed to add to trade list.</span>");
@@ -467,10 +467,16 @@ jQuery(document).ready(function($) {
           $(p).show();
         }
       });
-      // popup_div.find('.thumbnail-wrapper').html(l.find('.thumbnail-wrapper').html());
-      // popup_div.find('.collection-pokemon-name').html(l.find('.collection-pokemon-name').html());
-      // popup_div.find('.collection-pokemon-cp').html(l.find('.collection-pokemon-cp').html());
-      // popup_div.find('.species-type-wrapper').html(l.find('.species-type-wrapper').html());
+      var pokemon_url = l.attr('data-pokemon-url');
+      var pokemon_name = l.attr('data-pokemon-name');
+      var pokemon_cp = l.attr('data-pokemon-cp');
+      var pokemon_price = l.attr('data-pokemon-price');
+      
+      popup_div.find('.thumbnail-wrapper').html("<img class=\"thumbnail-image\" src=\""+ pokemon_url + "\" alt=\"\" >");
+      popup_div.find('.popup-pokemon-name-wrapper').html(pokemon_name);
+      popup_div.find('.popup-pokemon-cp-wrapper').html("CP: " + pokemon_cp);
+      popup_div.find('.popup-pokemon-type-wrapper').html(l.find('.species-type-wrapper').html());
+      popup_div.find('.popup-pokemon-price-wrapper').html("Price: " + pokemon_price + "$");
       // console.log(this);
       // popup_div.find('#popup-message').html("");
 

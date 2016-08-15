@@ -18,7 +18,7 @@
   <tbody class="listing-table-body"> 
     <% if current_listings.any? %>
       <% current_listings.each do |listing|%> 
-        <tr data-listing-id="<%=listing.id%>" class="listing-row listing-table-row">
+        <tr data-listing-id="<%=listing.id%>" data-pokemon-url="<%= listing.pokemon.image_url %>" data-pokemon-name="<%= listing.pokemon.species.name %>" data-pokemon-cp="<%= listing.pokemon.cp %>" data-pokemon-price="<%= (listing.price / 100.0).round(2) %>" class="listing-row listing-table-row">
         <% p = listing.pokemon %>
         <% wl = listing.wishlist %>
           <td> <!--Pokemon for Sale-->
@@ -181,25 +181,36 @@
 
 <!-- Popup page -->
 <!-- Add to trade list -->
-<div class="container wrapper cart_popup_content" id="checkout_popup">
+<div class="container wrapper mfp-hide cart_popup_content" id="checkout_popup">
   <div class="popup-title intro-text text_center"><span >Choose Buy Pokemon or Trade Pokemon</span></div>
   <!-- panel with form with three input fields -->
   <div class="panel-body">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-6 popup-checkout-trade-in-wrapper">
         <div class="col-title">
-          <span>Trade Out</span>
+          <span>Pay with money</span>
         </div>
         <div>
           <div class= "thumbnail-wrapper">
+
           </div>
-          <div class=" collection-pokemon-name">
+          <div class="popup-pokemon-name-wrapper">
+
           </div>
+          <div class="popup-pokemon-cp-wrapper">
+
+          </div>
+          <div class="popup-pokemon-type-wrapper">
+
+          </div>
+          <div class="popup-pokemon-price-wrapper">
+
+          </div>  
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 popup-checkout-trade-in-wrapper">
         <div class="col-title">
-          <span>Trade In</span>
+          <span>Pay with pokemon</span>
         </div>
         <div> 
           <% @user.pokemons.each do |p|%>
@@ -218,25 +229,29 @@
       </div>
     </div>
     <div class='row'>  
-      <div class="col-sm-6">
-        <form id="popup-form-pay-money" action='/api/user/<%=@user.id%>/checkout'>  
-          <div class="col-sm-5" id="popup-button-wrapper">
-            <button class='btn btn-success' id="popup-button" type='submit'>Pay with money</button>
-            <div>
-            <span id="popup-message"></span>
-            </div>
-          </div> 
-        </form>
+      <div class="col-md-6">
+        <div class="popup-checkout-form-wrapper">
+          <form id="popup-form-pay-money" action='/api/user/<%=@user.id%>/checkout'>  
+            <div class="col-sm-5" id="popup-button-wrapper">
+              <button class='btn btn-success' id="popup-button" type='submit'>Pay with money</button>
+              <div>
+              <span id="popup-message"></span>
+              </div>
+            </div> 
+          </form>
+        </div>
       </div>
-      <div class="col-sm-6">
-        <form id="popup-form-pay-pokemon" action='/api/user/<%=@user.id%>/checkout_with_pokemon'>
-          <div class="col-sm-5" id="popup-button-wrapper">
-            <button class='btn btn-success' id="popup-button" type='submit'>Pay with pokemon</button>
-            <div>
-            <span id="popup-message"></span>
-            </div>
-          </div> 
-        </form>
+      <div class="col-md-6">
+        <div class="popup-checkout-form-wrapper">
+          <form id="popup-form-pay-pokemon" action='/api/user/<%=@user.id%>/checkout_with_pokemon'>
+            <div class="col-sm-5" id="popup-button-wrapper">
+              <button class='btn btn-success' id="popup-button" type='submit'>Pay with pokemon</button>
+              <div>
+              <span id="popup-message"></span>
+              </div>
+            </div> 
+          </form>
+        </div>
       </div>
     </div>
   </div>
