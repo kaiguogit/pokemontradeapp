@@ -371,6 +371,7 @@ max-width: 1024px;
 .col-pokedex {
   width: 20%;
   padding: 0px 5px;
+  height: 420px;
 }
 .thumbnail {
   margin-bottom: 10px;

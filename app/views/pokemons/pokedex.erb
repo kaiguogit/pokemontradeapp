@@ -379,6 +379,8 @@
 <!-- Popup page -->
 <!-- Add to trade list -->
 <div  class="container wrapper mfp-hide" id="add_to_trade_list_popup">
+
+<!--  -->
   <div class="popup-title"><span > Add This Pokemon to Trade List. </span></div>
   
   <!-- Image on the left -->
@@ -388,30 +390,37 @@
   <!-- <div id="popup-species-name"></div> -->
 
   <!-- panel with form with three input fields -->
+  <!--  -->
   <div class="panel-body">
     <div class="row">
       <div class="col-md-2 col-pokedex">
         <div class="col-title">
           <span>Trade Out</span>
         </div>
+        <!--  -->
         <div class="thumbnail">
           <div class= "thumbnail-wrapper">
           </div>
+          <!--  -->
           <div class="caption collection-pokemon-name">
           </div>
           <div class="caption collection-pokemon-cp">
           </div>
+          <!--  -->
           <div class="species-type-wrapper">
           </div>
           <div class="species-move-wrapper">
           </div>
+          <!--  -->
         </div>
       </div>
-
+<!--  -->
       <div class="col-md-1" id="transfer-icon">
+      <!--  -->
         <h1><span class='glyphicon glyphicon-transfer'></span></h1>
       </div>  
 
+<!--  -->
       <div class="col-md-2 col-pokedex">
         <div class="col-title">
           <span>Trade In</span>
@@ -422,13 +431,17 @@
             <div class="button-tooltiptext">
               <div class="popup-name"><span><%= wl_p.name %></span></div>
             </div>
+            <!--  -->
             <a class="trade-form-wish-list-item" data-species-id="<%= wl_p.id %>"><img class="small-icon" src="<%= wl_p.image_url%>" class="td-icon"></a>
           </div>
+          <!--  -->
         <% end %>
       </div>  
+      <!--  -->
       <div class="col-md-1 " id="transfer-icon">
         <h3>OR</h3>
       </div>
+      <!--  -->
       <div class="col-md-4">
         <form id="popup-form" action='api/user/<%= session[:user_id] %>/listings'>
           <div class="col-sm-7">
@@ -438,9 +451,11 @@
             </div>
             <div class="col-sm-4" id="price-unit"><em>$</em></div>
           </div>  
+          <!--  -->
           <div class="col-sm-5" id="popup-button-wrapper">
             <button class='btn btn-success' id="popup-button" type='submit'>Submit</button>
             <div>
+            <!--  -->
             <span id="popup-message"></span>
             </div>
           </div> 
