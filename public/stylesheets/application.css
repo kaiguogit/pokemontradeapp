@@ -433,7 +433,7 @@ body{
   /*width: auto;*/
   /*max-width: 500px;*/
   /*margin: 20px auto;*/
-  height: 559px; 
+  height: auto;
   /*width:500px; */
   /*margin: auto;*/
   /*text-align:center;*/
@@ -441,6 +441,77 @@ body{
 
 #add_to_trade_list_popup .small-icon{
   height: 80px;
+}
+#add_to_trade_list_popup #transfer-icon{
+  font-size: 50px;
+  top:112px;
+}
+
+#add_to_trade_list_popup #popup-button{
+  bottom: 27%;
+  position: absolute;
+  margin: auto;
+  width: 80%;
+  height: 20%;
+  font-size: 20px;
+}
+#add_to_trade_list_popup #popup-button-wrapper{
+  position:;
+}
+#add_to_trade_list_popup #popup-form{
+    height: 188px;
+  }
+#add_to_trade_list_popup .col-title{
+  font-size:40px;
+  height: 50px;
+}
+
+#add_to_trade_list_popup .popup-title{
+  height:50px;
+  width:100%;
+  text-align: center;
+  font-size: 30px;
+  padding: 12px;
+  /*color:#F36C00;*/
+}
+
+
+#add_to_trade_list_popup #popup-form div{
+    height: 100%;
+
+  }
+#add_to_trade_list_popup #popup-form label{
+    font-size:40px;
+  }
+#add_to_trade_list_popup #popup-form input#price, #add_to_trade_list_popup #popup-form #price-unit em{
+      max-width: 100%;
+    position: absolute;
+    max-height: 100%;
+    height: 20%;
+    width: 100%;
+    display: block;
+    /* margin: 0 20px; */
+    bottom: 25%;
+    text-align: center;
+    font-size: 30px;
+  }
+
+#add_to_trade_list_popup #popup-form #price-unit em{
+      max-width: 100%;
+    position: absolute;
+    max-height: 100%;
+    height: 20%;
+    width: 100%;
+    display: block;
+    /* margin: 0 20px; */
+    bottom: 22%;
+    text-align: center;
+    font-size: 30px;
+  }
+  
+#add_to_trade_list_popup #popup-form #price-wrapper, #add_to_trade_list_popup #popup-form #price-unit{
+  display:inline-block;
+  padding:0px;
 }
 
 .white-popup div{
