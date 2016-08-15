@@ -3,7 +3,7 @@
     margin: auto;
     min-width: 100vh;
     min-height: 100vw;
-    margin-top: -20px;
+    margin-top: -100px;
     background: url("/icons/vancouver.jpg");
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -71,6 +71,8 @@
     background-color: rgba(255,255,255,1);
   }
 /*end of home page*/
+
+
 
 .dropdown-list{
   margin: 0
@@ -232,8 +234,13 @@ max-width: 1024px;
     font-family: "Titillium Web",arial,sans-serif;
     font-size: 167.5%;
     color: #fff;
-    margin:0px 0px 10px 0px;
+    margin:50px 0px 10px 0px;
     padding:10px 0px;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 1;
+}
 }
 .search-bar-pokedex-label{
   margin-bottom: 5px;
@@ -388,7 +395,7 @@ max-width: 1024px;
 body{
   background: #fff url("http://assets.pokemon.com/static2/_ui/img/chrome/container_bg.png");
   /*background-image: url("/icons/vancouver.jpg");*/
-  padding-top: 70px;
+  padding-top: 150px;
   margin: 0 auto;
 }
 
@@ -540,3 +547,31 @@ body{
 .text_center{
   text-align: center;
 }
+
+.margin_bottom_5px{
+  margin-bottom: 5px;
+}
+
+/*transfer box*/
+.transfer-box-1{
+  width: 30%;
+}
+
+.transfer-box-2{
+  width: 5%;
+}
+
+.transfer-box-3{
+  width: 30%;
+
+}
+
+.transfer-box-4{
+  width: 5% 
+}
+
+.transfer-box-5{
+  width: 30%;
+}
+
+

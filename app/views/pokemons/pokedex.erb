@@ -379,7 +379,7 @@
 <!-- Popup page -->
 <!-- Add to trade list -->
 <div  class="container wrapper mfp-hide" id="add_to_trade_list_popup">
-  <div class="popup-title"><span > Add This Pokemon to Trade List. </span></div>
+  <div class="popup-title intro-text"><span > Please fill in your listing price or select pokemon to trade! </span></div>
   
   <!-- Image on the left -->
   <!-- <div id="popup-species-image"></div> -->
@@ -388,10 +388,10 @@
   <!-- <div id="popup-species-name"></div> -->
 
   <!-- panel with form with three input fields -->
-  <div class="panel-body">
+  <div class="col-sm-12 panel-body">
     <div class="row">
-      <div class="col-md-2 col-pokedex">
-        <div class="col-title">
+      <div class="transfer-box-1">
+        <div class="col-title intro-text text-center">
           <span>Trade Out</span>
         </div>
         <div class="thumbnail">
@@ -407,13 +407,12 @@
           </div>
         </div>
       </div>
-
-      <div class="col-md-1" id="transfer-icon">
+      <div class="transfer-box-2" id="transfer-icon">
         <h1><span class='glyphicon glyphicon-transfer'></span></h1>
       </div>  
 
-      <div class="col-md-2 col-pokedex">
-        <div class="col-title">
+      <div class="transfer-box-3">
+        <div class="col-title intro-text text-center">
           <span>Trade In</span>
         </div>
         <% wl = @user.user_wish_list.pokemons.map{|p|p.species.id} %>
@@ -426,25 +425,27 @@
           </div>
         <% end %>
       </div>  
-      <div class="col-md-1 " id="transfer-icon">
+      <div class="transfer-box-4" id="transfer-icon">
         <h3>OR</h3>
       </div>
-      <div class="col-md-4">
-        <form id="popup-form" action='api/user/<%= session[:user_id] %>/listings'>
-          <div class="col-sm-7">
-            <div class="col-sm-8" id="price-wrapper">
-              <label for="price">Price</label>
-              <input type="textarea" id="price" name="price">
+      <div class="transfer-box-5">
+        <div class="row col-title intro-text text-center">
+          <span>Price</span>
+        </div>
+        <div class="row col-md-12">
+          <form class='form-horizon' id="popup-form" action='api/user/<%= session[:user_id] %>/listings'>
+            <div class='form-group'>
+              <label for="price">$</label>
+              <input class='form-contorl' type="textarea" id="price" name="price"> 
             </div>
-            <div class="col-sm-4" id="price-unit"><em>$</em></div>
-          </div>  
-          <div class="col-sm-5" id="popup-button-wrapper">
-            <button class='btn btn-success' id="popup-button" type='submit'>Submit</button>
-            <div>
+          </form>
+        </div>
+        <div class="row col-sm-12" id="popup-button-wrapper">
+          <div><button class='btn btn-success' id="popup-button" type='submit'>Submit</button><div>
+          <div>
             <span id="popup-message"></span>
-            </div>
-          </div> 
-        </form>
+          </div>
+        </div>         
       </div>
     </div>
   </div>
