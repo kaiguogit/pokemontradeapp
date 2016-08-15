@@ -171,7 +171,7 @@
 max-width: 1024px;
 }
 
-.wish_list_button, .add_to_trade_list_button, .remove_from_collection_button, .edit_in_collection_button {
+.wish_list_button, .add_to_trade_list_button, .remove_from_collection_button, .edit_in_collection_button, .remove_listing_button {
   font-size: 30px;
   color: #616161;
 }
@@ -439,7 +439,7 @@ body{
   /*text-align:center;*/
 }
 
-#add_to_trade_list_popup .small-icon{
+.small-icon{
   height: 80px;
 }
 #add_to_trade_list_popup #transfer-icon{

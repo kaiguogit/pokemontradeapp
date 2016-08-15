@@ -43,7 +43,9 @@ namespace '/api' do
     end
 
     delete '/pokemons' do
-      Pokemon.destroy(params[:pokemon_id])
+      p = Pokemon.find(params[:pokemon_id])
+      p.user = nil
+      p.save
       user = User.find(params[:user_id])
       pokemon_array = user.pokemons.map{|p|p.id.to_s}
       json pokemon_array
@@ -89,10 +91,59 @@ namespace '/api' do
       end
     end
 
-    delete '/listing' do
-
+    delete '/listings' do
+      Listing.destroy(params[:listing_id])
+      user = User.find(params[:user_id])
+      listings = user.listings.map{|l|l.id.to_s}
+      json listings
     end
+
+    post '/checkout' do
+      listing = Listing.find(params[:listing_id])
+      seller = listing.user 
+      seller_pokemon = listing.pokemon
+      buyer = User.find(params[:buyer_id])
+      price = listing.price
+      # buyer_pokemon = Pokemon.find(params[:buyer_pokemon_id])
+
+
+      if buyer.wallet >= price
+        buyer.wallet -= price
+        buyer.save
+        seller.wallet += price
+        seller.save
+        seller_pokemon.user = buyer 
+        seller_pokemon.save
+        # buyer_pokemon.user = seller
+        listing.status = 'completed' 
+        listing.save
+        result = listing.attributes
+        result["message"]="Success"
+        json result
+      else #transaction failed
+        # do something
+        puts "didnt succeed"
+      end
+    end
+
+    post '/checkout_with_pokemon' do
+      listing = Listing.find(params[:listing_id])
+      seller = listing.user 
+      seller_pokemon = listing.pokemon
+      buyer = User.find(params[:buyer_id])
+      buyer_pokemon = Pokemon.find(params[:buyer_pokemon_id])
+      buyer_pokemon.user = seller
+      buyer_pokemon.save
+      seller_pokemon.user = buyer 
+      seller_pokemon.save
+      # buyer_pokemon.user = seller
+      listing.status = 'completed' 
+      listing.save
+      result = listing.attributes
+      result["message"]="Success"
+      json result
     
+    end
   end
 
 end

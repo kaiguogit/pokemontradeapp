@@ -1,5 +1,5 @@
 # Homepage (Root path)
-
+require 'json'
 before do
   if session[:user_id]
     @user = User.find(session[:user_id])
@@ -140,26 +140,31 @@ get '/carts' do
   erb :'/carts/show'
 end
 
-post '/checkout' do
-  listing = Listing.find(params[:listing_id])
-  seller = listing.user 
-  seller_pokemon = listing.pokemon
-  buyer = User.find(params[:buyer_id])
-  price = listing.price
-  # buyer_pokemon = Pokemon.find(params[:buyer_pokemon_id])
-  
-  if buyer.wallet >= price
-    buyer.wallet -= price
-    buyer.save
-    seller.wallet += price
-    seller.save
-    seller_pokemon.user = buyer 
-    seller_pokemon.save
-    # buyer_pokemon.user = seller
-    listing.status = 'completed' 
-    listing.save
-    redirect '/carts'
-  else #transaction failed
-    # do something
-  end
-end
+# post '/checkout' do
+#   binding.pry
+#   listing = Listing.find(params[:listing_id])
+#   seller = listing.user 
+#   seller_pokemon = listing.pokemon
+#   buyer = User.find(params[:buyer_id])
+#   price = listing.price
+#   # buyer_pokemon = Pokemon.find(params[:buyer_pokemon_id])
+
+
+#   if buyer.wallet >= price
+#     buyer.wallet -= price
+#     buyer.save
+#     seller.wallet += price
+#     seller.save
+#     seller_pokemon.user = buyer 
+#     seller_pokemon.save
+#     # buyer_pokemon.user = seller
+#     listing.status = 'completed' 
+#     listing.save
+#     result = listing.attributes
+#     result["message"]="Success"
+#     json result
+#     # redirect '/carts'
+#   else #transaction failed
+#     # do something
+#   end
+# end

@@ -1,4 +1,4 @@
-
+<%= erb :'/search_bar'%>
 <% search_results = Listing.all %>
 <% if params[:keyword] %>
   <% search_results = Listing.joins(:pokemon).where("pokemons.name ILIKE '%#{params[:keyword]}%'") %> 
