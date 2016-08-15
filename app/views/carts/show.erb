@@ -181,67 +181,44 @@
 
 <!-- Popup page -->
 <!-- Add to trade list -->
-<div  class="container wrapper" id="checkout_popup">
-  <div class="popup-title"><span > Checkout </span></div>
-  
-  <!-- Image on the left -->
-  <!-- <div id="popup-species-image"></div> -->
-
-  <!-- form table on the right-->
-  <!-- <div id="popup-species-name"></div> -->
-
+<div class="container wrapper cart_popup_content" id="checkout_popup">
+  <div class="popup-title intro-text text_center"><span >Choose Buy Pokemon or Trade Pokemon</span></div>
   <!-- panel with form with three input fields -->
   <div class="panel-body">
     <div class="row">
-      <div class="col-md-2 col-pokedex">
+      <div class="col-md-6">
         <div class="col-title">
           <span>Trade Out</span>
         </div>
-        <div class="thumbnail">
+        <div>
           <div class= "thumbnail-wrapper">
           </div>
           <div class=" collection-pokemon-name">
           </div>
-          <div class=" collection-pokemon-cp">
-          </div>
-          <div class="species-type-wrapper">
-          </div>
-          <div class="species-move-wrapper">
-          </div>
         </div>
       </div>
-
-      <div class="col-md-1" id="transfer-icon">
-        <h1><span class='glyphicon glyphicon-transfer'></span></h1>
-      </div>  
-
-      <div class="col-md-2 col-pokedex">
+      <div class="col-md-6">
         <div class="col-title">
           <span>Trade In</span>
         </div>
-
-
         <div> 
-            <% @user.pokemons.each do |p|%>
-              <div class="col-md-2 listing-wish-list-popup" data-species-id="<%=p.species.id%>" data-pokemon-id="<%=p.id%>">
-                <div class=" button-tooltip">
-                  <div class="button-tooltiptext">
-                    <div class="popup-name"><span><%= p.name %></span></div>
-                    <div class="popup-img"><img src="<%= p.image_url %>"></div>
-                    <div class="popup-message-not-own"></div>
-                  </div>
-                   <a class="popup-check-out-pokemon-selector" data-pokemon-id="<%= p.id %>"><img src="<%= p.image_url%>" class="td-icon small-icon" data-pokemon-id="<%= p.id %>"></a>
-                  
+          <% @user.pokemons.each do |p|%>
+            <div class="col-md-2 listing-wish-list-popup" data-species-id="<%=p.species.id%>" data-pokemon-id="<%=p.id%>">
+              <div class=" button-tooltip">
+                <div class="button-tooltiptext">
+                  <div class="popup-name"><span><%= p.name %></span></div>
+                  <div class="popup-img"><img src="<%= p.image_url %>"></div>
+                  <div class="popup-message-not-own"></div>
                 </div>
-            <% end %>
-          </div>
-
-
-      </div>  
-      <div class="col-md-1 " id="transfer-icon">
-        <h3>OR</h3>
+                  <a class="popup-check-out-pokemon-selector" data-pokemon-id="<%= p.id %>"><img src="<%= p.image_url%>" class="td-icon small-icon" data-pokemon-id="<%= p.id %>"></a>     
+              </div>
+            </div>
+          <% end %>
+        </div>  
       </div>
-      <div class="col-md-4">
+    </div>
+    <div class='row'>  
+      <div class="col-sm-6">
         <form id="popup-form-pay-money" action='/api/user/<%=@user.id%>/checkout'>  
           <div class="col-sm-5" id="popup-button-wrapper">
             <button class='btn btn-success' id="popup-button" type='submit'>Pay with money</button>
@@ -250,6 +227,8 @@
             </div>
           </div> 
         </form>
+      </div>
+      <div class="col-sm-6">
         <form id="popup-form-pay-pokemon" action='/api/user/<%=@user.id%>/checkout_with_pokemon'>
           <div class="col-sm-5" id="popup-button-wrapper">
             <button class='btn btn-success' id="popup-button" type='submit'>Pay with pokemon</button>

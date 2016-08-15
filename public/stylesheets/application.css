@@ -530,3 +530,13 @@ body{
 .chosen-container.chosen-container-single {
     min-width: 200px !important; /* or any value that fits your needs */
 }
+
+.cart_popup_content{
+  width: 1000px;
+  height: 500px;
+  border-color: black;
+}
+
+.text_center{
+  text-align: center;
+}
