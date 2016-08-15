@@ -120,8 +120,14 @@ end
 # end 
 
 post '/listings/add_to_cart' do 
-  @user.cart.listings << Listing.find(params[:listing_id])
-  redirect '/carts'
+  listings = @user.cart.listings
+  if listings.select{|l|l.id.to_s == params[:listing_id]}.empty?
+    @user.cart.listings << Listing.find(params[:listing_id])
+    redirect '/carts'
+  else
+    redirect '/listings'    
+  end
+
 end
 
 delete '/cart/listing' do

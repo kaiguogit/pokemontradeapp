@@ -65,16 +65,18 @@ namespace '/api' do
 
     post '/listings' do
       user = User.find(params[:user_id])
-      # binding.pry
       if user.listings.select{|l|l.pokemon.id.to_s == params[:pokemon_id]}.empty?
         listing = Listing.new()
         listing.pokemon = Pokemon.find(params[:pokemon_id])
         listing.wishlist = Wishlist.new()
         listing.user = user
-        params[:wish_list].each do |p_id|
-          listing.wishlist.pokemons << Pokemon.create(species: Species.find(p_id))
+        if params[:wish_list] && params[:wish_list].is_a?(Array)
+          params[:wish_list].each do |p_id|
+            listing.wishlist.pokemons << Pokemon.create(species: Species.find(p_id))
+          end
         end
-        listing.price = params[:price]
+
+        listing.price = params[:price] || "0"
         if listing.save
           puts "successfully saved listing"
           json listing.attributes
@@ -87,6 +89,10 @@ namespace '/api' do
       end
     end
 
+    delete '/listing' do
+
+    end
+    
   end
 
 end

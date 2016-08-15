@@ -171,7 +171,30 @@ var remove_from_collection = function(pokemon_id,ele) {
       }
     });
   }
+var remove_listing = function(listing_id,ele) {
+  $.ajax({
+    url: '/api/user/' + user_id + '/listings',
+    type: 'DELETE',
+    data: { listing_id: listing_id },
+    success: function(listings) {
+      ele.attr('data-disabled',"false");
+      ele.html('<span class=\'glyphicon glyphicon-heart\'></span>');
+      update_listing_list(listing_id, listings);
+    },
+    error: function() {
+    }
+  });
+}
 
+var update_listing_list = function(listing_id,listings){
+  l = $("#trade-list .listing-item[data-listing-id=" + listing_id +"]");
+  if (listings.indexOf(listing_id) != -1){
+    l.show();
+  }
+  else{
+    l.hide();
+  }
+}
 //////wish_list_button_listener
   $('a.wish_list_button').click(function() {
     event.preventDefault();
@@ -208,15 +231,35 @@ var remove_from_collection = function(pokemon_id,ele) {
   $(this).parent().addClass('active');
  });
   
-  // Will only work if string in href matches with location
-  
 
-  // // Will also work for relative and absolute hrefs
-  // $('ul.nav a').filter(function() {
-  //     return this.href == url;
-  // }).parent().addClass('active');
+////collection button listener
+
+  $('a.remove_from_collection_button').click(function() {
+    event.preventDefault();
+    if($(this).attr('data-disabled') == "true"){
+      return false;
+    }
+    var ele = $(this);
+    var pokemon_id = $(this).attr('data-pokemon-id');
+    //http://preloaders.net/en/free
+    $(this).html('<img id=\"#loader-icon\" src=\"/images/loader-icon36-36.gif\">')
+    $(this).attr('data-disabled',"true");
+    remove_from_collection(pokemon_id,ele);
+  });
 
 
+  $('a.remove_remove_listing_button').click(function() {
+    event.preventDefault();
+    if($(this).attr('data-disabled') == "true"){
+      return false;
+    }
+    var ele = $(this);
+    var listing_id = $(this).attr('data-listing-id');
+    //http://preloaders.net/en/free
+    $(this).html('<img id=\"#loader-icon\" src=\"/images/loader-icon36-36.gif\">')
+    $(this).attr('data-disabled',"true");
+    remove_listing(listing_id,ele);
+  });
 
 });
 
@@ -347,9 +390,9 @@ jQuery(document).ready(function($) {
       popup_div.find('.collection-pokemon-cp').html(l.find('.collection-pokemon-cp').html());
       popup_div.find('.species-type-wrapper').html(l.find('.species-type-wrapper').html());
       console.log(this);
-
+      popup_div.find('#popup-message').html("");
       popup_div.find('#popup-form').submit(function(){
-        popup_div.find('#popup-message').html("");
+        
         wishlist_array = popup_div.find('.trade-form-wish-list-item');
         wishlist_array = $(wishlist_array).filter(function(i,b){return ($(b.children).hasClass('listings-wishlist-user-owned')); });
         wishlist_array = jQuery.map(wishlist_array,function(a){return $(a).attr("data-species-id");});
@@ -358,7 +401,7 @@ jQuery(document).ready(function($) {
         $.ajax({
           url: $form.attr('action'),
           type: 'POST',
-          data: {pokemon_id: pokemon_id, user_id: user_id, wish_list: wishlist_array, price: "1000"},
+          data: {pokemon_id: pokemon_id, user_id: user_id, wish_list: wishlist_array, price: $($form.find('#name')).val()},
           success: function(data){
             console.log(data);
             console.log("added to trade list");

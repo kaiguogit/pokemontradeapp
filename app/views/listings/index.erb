@@ -72,13 +72,20 @@
           <td> <!--Price-->
             <div><%= listing.price ? (listing.price / 100.00).round(2) : 0 %>$</div>
           </td> 
-          <td> <!--Add to cart button-->
+          <td> 
             <div>
-              <form method="post" action="/listings/add_to_cart">
-                <input type="hidden" name="listing_id" value=<%= listing.id %>>
-                <button class="btn btn-primary">Add to cart</button>
-              </form>
-            </div>
+              <%if @user.cart.listings.select{|l|l.id == listing.id}.empty? %>
+          <!--Add to cart button-->
+                
+                  <form method="post" action="/listings/add_to_cart">
+                    <input type="hidden" name="listing_id" value=<%= listing.id %>>
+                    <button class="btn btn-primary">Add to cart</button>
+                  </form>
+                
+              <% else %>
+                <span class="label label-success">Added</span>
+              <% end %>
+            </div>  
           </td>
         </tr>
       <% end %> 
