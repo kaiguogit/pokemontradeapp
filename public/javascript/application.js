@@ -22,6 +22,7 @@ $(document).ready(function() {
   //update pokedex by search box 
   var name_input = $('#search_bar_pokedex');
   var type_input = $('#type-bar-pokedex');
+  var wish_list_gl;
   //var name_input = document.getElementById('search-pokemon');
    // name_input = $(name_input);
 
@@ -59,6 +60,7 @@ var filter_pokemon = function(){
           $l.hide();
         }
       });
+      update_all_wishlist_cards(window.wish_list_gl);
       var lis = $('.listing-table-row');
       lis.each(function(i,l){
         var $l = $(l)
@@ -99,6 +101,8 @@ var filter_pokemon = function(){
         url: '/api/user/' + user_id + '/wishlist',
         method: 'GET', // optional
         success: function(data) {
+          window.wish_list_gl = data;
+
           wrap_wishlist_button(data);
           // for(var i = 0; i < data.length; i++) {
           //   render_review(data[i]);
@@ -118,7 +122,7 @@ var filter_pokemon = function(){
       wrap_species_wishlist_button(species_id, wish_list);
       update_wishlist_cards(species_id, wish_list);
     });
-  }
+  }  
 
 var wrap_species_wishlist_button = function(species_id,wish_list){
   l = $("#pokedex .col-pokedex[data-species-id=" + species_id +"]");
@@ -140,6 +144,22 @@ var update_wishlist_cards = function(species_id,wish_list){
   else{
     l.hide();
   }
+}
+var remove_wishlist_cards = function(species_id,wish_list){
+  l = $("#wish-list .col-pokedex[data-species-id=" + species_id +"]");
+  if (wish_list.indexOf(species_id) == -1){
+    l.hide();
+  }
+}
+
+var update_all_wishlist_cards = function(wish_list){
+  var lis = $('#wish-list .col-pokedex');
+  lis.each(function(i,l){
+    var $l = $(l)
+    // var name = $l.find('.caption').html().trim();
+    var species_id = $l.attr('data-species-id');
+    remove_wishlist_cards(species_id, wish_list);
+  });
 }
 
 var update_collection_cards = function(pokemon_id,collection_list){
@@ -165,6 +185,7 @@ var update_to_wishlist = function(species_id,ele) {
       type: 'POST',
       data: { species_id: species_id },
       success: function(wish_list) {
+        window.wish_list_gl = wish_list;
         ele.attr('data-disabled',"false");
         ele.html('<span class=\'glyphicon glyphicon-heart\'></span>');
         wrap_species_wishlist_button(species_id, wish_list);
