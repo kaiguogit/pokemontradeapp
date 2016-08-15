@@ -418,7 +418,7 @@ jQuery(document).ready(function($) {
         $.ajax({
           url: $form.attr('action'),
           type: 'POST',
-          data: {pokemon_id: pokemon_id, user_id: user_id, wish_list: wishlist_array, price: $($form.find('#name')).val()},
+          data: {pokemon_id: pokemon_id, user_id: user_id, wish_list: wishlist_array, price: ($($form.find('#price')).val() * 100)},
           success: function(data){
             console.log(data);
             console.log("added to trade list");

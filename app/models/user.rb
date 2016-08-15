@@ -11,9 +11,21 @@ class User < ActiveRecord::Base
 
   before_create :add_wallet
 
+  before_create :create_wish_list
+  before_create :create_cart
+
   def add_wallet
     self.wallet = 0 
   end 
+
+  def create_wish_list
+    self.user_wish_list = UserWishList.create
+  end
+  
+  def create_cart
+    self.cart = Cart.create
+  end
+
 
   def password
     @password ||= Password.new(password_hash)

@@ -40,7 +40,7 @@ post '/login' do
   if user && user.password == params[:password]
     session[:user_id] = user.id
     @username = user.username
-    redirect '/pokedex'
+    redirect '/pokedex#pokedex'
   else
     flash[:notice] = "Username or password you entered is not correct."
     redirect '/'
