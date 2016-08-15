@@ -2,7 +2,7 @@
 
 
 <!-- Tabs -->
-  <div>
+  <div class="container wrapper">
     <ul class="nav nav-pills nav-justified">
       <li role='presentation' class="active"><a class="tab-link" href="#pokedex">All Pokemons</a></li>
       <li role='presentation'><a class="tab-link" href="#owned-pokemon-list">Your Pokemons</a></li>
@@ -15,7 +15,7 @@
 
 <div class="container wrapper tabs" >
 
-  <div id="pokedex">
+  <div class="panel-body" id="pokedex">
     <!-- pokemon cards -->
 
     <% Species.all.each do |s| %>
@@ -287,8 +287,9 @@
 
 <!-- Popup page -->
 <!-- Add to trade list -->
-<div  class="container wrapper" id="add_to_trade_list_popup">
-  <span class="popup-title"> Add Pokemon to Trade List. </span>
+<div  class="container wrapper mfp-hide" id="add_to_trade_list_popup">
+  <div class="popup-title"><span > Add This Pokemon to Trade List. </span></div>
+  
   <!-- Image on the left -->
   <!-- <div id="popup-species-image"></div> -->
 
@@ -299,6 +300,9 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-md-2 col-pokedex">
+        <div class="col-title">
+          <span>Trade Out</span>
+        </div>
         <div class="thumbnail">
           <div class= "thumbnail-wrapper">
           </div>
@@ -313,11 +317,14 @@
         </div>
       </div>
 
-      <div class="col-md-1">
+      <div class="col-md-1" id="transfer-icon">
         <h1><span class='glyphicon glyphicon-transfer'></span></h1>
       </div>  
 
       <div class="col-md-2 col-pokedex">
+        <div class="col-title">
+          <span>Trade In</span>
+        </div>
         <% wl = @user.user_wish_list.pokemons.map{|p|p.species.id} %>
         <% wl.uniq.map{|id|Species.find(id)}.each do |wl_p|%>
           <div class=" button-tooltip">
@@ -328,17 +335,20 @@
           </div>
         <% end %>
       </div>  
-      <div class="col-md-2">
+      <div class="col-md-1 " id="transfer-icon">
         <h3>OR</h3>
       </div>
       <div class="col-md-4">
         <form id="popup-form" action='api/user/<%= session[:user_id] %>/listings'>
-          <div class="col-md-3">
-          <label for="price">Price</label>
-          <input type="textarea" id="price" name="price">
+          <div class="col-sm-7">
+            <div class="col-sm-8" id="price-wrapper">
+              <label for="price">Price</label>
+              <input type="textarea" id="price" name="price">
+            </div>
+            <div class="col-sm-4" id="price-unit"><em>$</em></div>
           </div>  
-          <div class="col-md-9">
-            <button class='btn btn-success col-sm-offset-5 col-sm-3' id="popup-button" type='submit'>Submit</button>
+          <div class="col-sm-5" id="popup-button-wrapper">
+            <button class='btn btn-success' id="popup-button" type='submit'>Submit</button>
             <div>
             <span id="popup-message"></span>
             </div>
