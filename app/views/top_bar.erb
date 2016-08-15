@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
 
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -11,7 +11,7 @@
     <!-- Tab: Pokedex and Listings-->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class='active top_bar_list'> 
+        <li class='top_bar_list'> 
           <a href="/pokedex#pokedex"><span class='glyphicon glyphicon-cd'></span> Pokedex</a>
         </li>
         <li class='top_bar_list'>
@@ -24,7 +24,7 @@
 
       <% if loggedin? %>
       <ul class="nav navbar-nav navbar-right"> 
-        <p class = 'navbar-text'><span class='glyphicon glyphicon-user'></span> Welcome, <%= @user.username %></p>      
+        <p class='navbar-text' style='line-height: 20px'><span class='glyphicon glyphicon-user'></span> Welcome, <%= @user.username %></a></p>
         <li class="dropdown top_bar_list">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             <span class="glyphicon glyphicon-cog"></span> Settings <span class="caret"></span>
