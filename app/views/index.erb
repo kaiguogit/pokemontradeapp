@@ -25,7 +25,7 @@
       <!--sign up form-->
       <div class="col-sm-6">
         <div class="panel panel-primary" id='signup-form'>
-          <div class="panel-heading">Sign Up Now</div>
+          <div class="panel-heading">Sign Up Now <%=flash[:notice]%></div>
           <form class='panel-body' method="post" action='/register'>
             <div class='form-group'>
               <label for='username'>Username:</label>

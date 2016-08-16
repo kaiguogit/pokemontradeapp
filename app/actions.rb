@@ -35,7 +35,7 @@ helpers do
   def restrict_access
     unless loggedin?
       flash[:notice] = "Please Login or register to proceed."
-      redirect :'/#signup-form'
+      redirect :'/#intro-text'
     end
   end
 end
