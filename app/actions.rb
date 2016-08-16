@@ -1,7 +1,11 @@
 # Homepage (Root path)
 require 'json'
 before do
-  if session[:user_id]
+  pass if request.path_info == '/'
+  pass if request.path_info == '/login'
+  pass if request.path_info == '/register'
+
+  if loggedin?
     @user = User.find(session[:user_id])
   else
     @user = User.new
@@ -9,6 +13,8 @@ before do
     @user.user_wish_list = UserWishList.new 
     session[:user_id] = @user_id
   end
+
+  restrict_access
   # if loggedin?
   #   @cart = User.find(session[:user_id]).cart
   # else
@@ -24,6 +30,13 @@ end
 helpers do 
   def loggedin?
     session[:user_id]
+  end
+
+  def restrict_access
+    unless loggedin?
+      flash[:notice] = "Please Login or register to proceed."
+      redirect :'/#signup-form'
+    end
   end
 end
 
@@ -146,6 +159,7 @@ post '/register' do
     @user = User.create(username: params[:username], email: params[:email])
     @user.password = params[:password]
     @user.save
+    session[:user_id] = @user.id
     redirect :'/pokedex#pokedex'
   else
     flash[:notice] == "Password confirmation does not match the first password entered."
