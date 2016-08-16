@@ -1,10 +1,6 @@
 # Homepage (Root path)
 require 'json'
 before do
-  pass if request.path_info == '/'
-  pass if request.path_info == '/login'
-  pass if request.path_info == '/register'
-
   if loggedin?
     @user = User.find(session[:user_id])
   else
@@ -13,6 +9,13 @@ before do
     @user.user_wish_list = UserWishList.new 
     session[:user_id] = @user_id
   end
+
+  
+  pass if request.path_info == '/'
+  pass if request.path_info == '/login'
+  pass if request.path_info == '/register'
+
+
 
   restrict_access
   # if loggedin?
