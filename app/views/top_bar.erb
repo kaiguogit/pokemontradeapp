@@ -40,12 +40,20 @@
       </ul>
       
       <% else %> <!--Not logged in. Visitor-->
-      <form class='navbar-form navbar-right' method="post" action="/login">
-        <div class='form-group'><input class='form-control' type="text" name="username" placeholder="Username"></div>
-        <div class='form-group'><input class='form-control' type="password" name="password" placeholder="Password"></div>
-        <span><%= flash[:notice] %></span>                
-        <button type="submit" class="btn btn-default">Login</button>         
-      </form> 
+      <ul class="nav navbar-nav navbar-right"> 
+        <li>
+          <form class='navbar-form' method="post" action="/login">
+            <div class='form-group'><input class='form-control' type="text" name="username" placeholder="Username"></div>
+            <div class='form-group'><input class='form-control' type="password" name="password" placeholder="Password"></div>
+            <span><%= flash[:notice] %></span>                
+            <button type="submit" class="btn btn-default">Login</button>     
+          </form> 
+        </li>
+        <li>
+        <form style="padding-left: 0;" class='navbar-form' method="get" action="/#signup-form"><button type="submit" class="btn btn-default" name="Register">Register</button></form></li>
+
+      </ul>
+    
      
       <% end %>  
     </div><!-- /.navbar-collapse -->

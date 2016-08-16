@@ -141,6 +141,17 @@ get '/carts' do
   erb :'/carts/show'
 end
 
+post '/register' do
+  if params[:password_confirm] == params[:password]
+    @user = User.create(username: params[:username], email: params[:email])
+    @user.password = params[:password]
+    @user.save
+    redirect :'/pokedex#pokedex'
+  else
+    flash[:notice] == "Password confirmation does not match the first password entered."
+    redirect :'/#signup-form'
+  end
+end
 # post '/checkout' do
 #   binding.pry
 #   listing = Listing.find(params[:listing_id])
