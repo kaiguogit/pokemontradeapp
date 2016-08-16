@@ -1,4 +1,4 @@
-Pokemontrade app
+Pokemon Exchange
 =============
 There is no trading feature provided in Pokemon Go for now.
 
