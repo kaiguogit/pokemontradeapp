@@ -14,7 +14,7 @@ configure :development, :test do
   #     'database' => APP_ROOT.join('db', 'test.sqlite3')
   #   }
   # }
-  # db = URI.parse(ENV['DATABASE_URL'] || 'postgres://localhost/mydb')
+  db = URI.parse(ENV['DATABASE_URL'] || 'postgres://localhost/mydb')
 
   ActiveRecord::Base.establish_connection(
       :adapter => 'postgresql',
@@ -36,6 +36,7 @@ configure :production do
   # environment variable. This is a feature of sinatra/activerecord support.
   #
   # If you're deploying to Heroku this will be set automatically.
+
 end
 
 configure do
