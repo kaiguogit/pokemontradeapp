@@ -1,10 +1,14 @@
-Sinatra
+Pokemon Exchange
 =============
+There is no trading feature provided in Pokemon Go for now.
 
-Brought to you by Lighthouse Labs
+I built this web app to simulate what offical website would do if they release trading feature.
 
-## Getting Started
+People can add Pokemons to collection, wishlist, post them to trade listing.
 
-1. `bundle install`
-2. `shotgun -p 3000 -o 0.0.0.0`
-3. Visit `http://localhost:3000/` in your browser
+Search other people's trade listing.
+
+Make trade with pokemon or money.
+
+## Check it out
+Visit `http://pokemontradeapp.herokuapp.com/` in your browser
