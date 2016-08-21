@@ -18,16 +18,7 @@ before do
 
 
   restrict_access
-  # if loggedin?
-  #   @cart = User.find(session[:user_id]).cart
-  # else
-  #   begin
-  #     @cart = Cart.find(session[:cart_id])
-  #   rescue ActiveRecord::RecordNotFound
-  #     c = Cart.create
-  #     session[:cart_id] = c.id
-  #   end
-  # end
+
 end
 
 helpers do 
@@ -38,7 +29,8 @@ helpers do
   def restrict_access
     unless loggedin?
       flash[:notice] = "Please Login or register to proceed."
-      redirect :'/#intro-text'
+      # redirect :'/#intro-text'
+      redirect :'/login'
     end
   end
 end
@@ -50,6 +42,13 @@ get '/' do
   erb :index
 end
 
+get '/login' do
+  erb :'login'
+end
+
+get '/register' do
+  erb :'register'
+end
 # User log in. starts user session. 
 
 post '/login' do 

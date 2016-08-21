@@ -1,0 +1,22 @@
+
+<div class="container">
+  <div class="col-sm-6 col-sm-offset-3 ">
+    <ul class="nav nav-tabs nav-justified">
+      <li role="presentation" class="active sign-in-tabs"><a href="#">Sign In</a></li>
+      <li role="presentation" class="sign-in-tabs"><a href="/register">Register</a></li>
+    </ul>
+      <form class='panel-body' id='signup-form' method="post" action='/login'>
+        <div class='form-group'>
+          <label for='username'>Username:</label>
+          <input class='form-control' type='text' id='username' name='username' placeholder='Username'>
+        </div>
+        <div class='form-group'>
+          <label for='password'>Password:</label>
+          <input class='form-control' type='text' id='password' name='password' placeholder='Password'>
+        </div>
+        <button class='btn btn-primary' type='submit'>Sign In</button>
+        <span><%= flash[:notice] %></span>
+
+      </form> 
+  </div>
+</div>
