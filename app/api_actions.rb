@@ -16,12 +16,6 @@ namespace '/api' do
     end
 
     post '/wishlist' do
-           if loggedin?
-          return true
-        else
-          flash[:notice] = "Please Login or register to proceed."
-          redirect :'/login'
-        end
       user = User.find(params[:user_id])
       species_array = user.user_wish_list.pokemons.map{|p|p.species.id.to_s}
       species_id = params[:species_id]
