@@ -3,19 +3,27 @@
 
 <!-- Tabs -->
   <div class="container wrapper">
-    <ul class="nav nav-pills nav-justified">
-      <li role='presentation' class="active"><a class="tab-link" href="#pokedex">All Pokemons</a></li>
-      <li role='presentation'><a class="tab-link" href="#owned-pokemon-list">Your Pokemons</a></li>
-      <li role='presentation'><a class="tab-link" href="#wish-list">Wishlist</a></li>
-      <li role='presentation'><a class="tab-link" href="#trade-list">Trade List</a></li>
+    <ul class="nav nav-tabs nav-justified" role="tablist" id="main-tabs">
+      <li role='presentation' class="active">
+        <a href="#pokedex" aria-controls="pokedex" role="tab" data-toggle="tab">All Pokemons</a>
+      </li>
+      <li role='presentation'>
+        <a href="#owned-pokemon-list" aria-controls="owned-pokemon-list" role="tab" data-toggle="tab">Your Pokemons</a>
+      </li>
+      <li role='presentation'>
+        <a href="#wish-list" aria-controls="wish-list" role="tab" data-toggle="tab">Wishlist</a>
+      </li>
+      <li role='presentation'>
+        <a href="#trade-list" aria-controls="trade-list" role="tab" data-toggle="tab">Trade List</a>
+      </li>
     </ul>
   </div>
 
 
 
-<div class="container wrapper tabs" >
+<div class="container wrapper tabs tab-content" >
 
-  <div class="panel-body" id="pokedex">
+  <div role="tabpanel" class="tab-pane active" id="pokedex">
     <!-- pokemon cards -->
 
     <% Species.all.each do |s| %>
@@ -57,7 +65,7 @@
 
   <!-- You pokemons -->
   <!--  -->
-  <div class="panel-body" id="owned-pokemon-list">
+  <div role="tabpanel" class="tab-pane" id="owned-pokemon-list">
     <div class="row">
       <% @user.pokemons.each do |pokemon|%>
         <div class="col-md-2 col-pokedex" data-pokemon-id="<%= pokemon.id %>">
@@ -120,7 +128,7 @@
 
   <!-- Wist List -->
   <!--  -->
-  <div id="wish-list">
+  <div role="tabpanel" class="tab-pane" id="wish-list">
     <div class="panel-body">
       <div class="row">
         <% Species.all.each do |species|%>
@@ -156,7 +164,7 @@
 
   <!-- Trade List -->
 
-  <div id="trade-list">
+  <div role="tabpanel" class="tab-pane" id="trade-list">
 
     <table class="table listing-table">
       <thead>
