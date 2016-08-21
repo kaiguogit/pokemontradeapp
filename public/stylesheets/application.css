@@ -410,13 +410,13 @@ body{
   /*display: none;*/
 }
 
-.tabs > div{
+/*.tabs > div{
   display: none;
 }
 
 .tabs > div:target {
   display: block;
-}
+}*/
 
 #owned-pokemon-list{
 

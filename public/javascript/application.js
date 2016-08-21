@@ -603,7 +603,5 @@ jQuery(document).ready(function($) {
   // Will only work if string in href matches with location
   $('ul.nav a[href="'+ url.pathname + url.hash +'"]').parent().addClass('active');
 
-
-// empty comment
   
 });
