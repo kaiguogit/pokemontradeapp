@@ -3,7 +3,7 @@ require 'json'
 
 before do
   if loggedin? || guest?
-    @user = User.find(session[:user_id])
+    @user = current_user
   else
     @user = User.create(guest: true)
     session[:user_id] = @user.id
@@ -21,7 +21,8 @@ helpers do
   end
 
   def guest?
-    session[:user_id] != nil && User.find(session[:user_id]).guest == true
+    user = current_user
+    session[:user_id] != nil && current_user && current_user.guest == true
   end
 
   # def restrict_access
