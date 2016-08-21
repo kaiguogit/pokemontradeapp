@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   before_create :create_cart
 
   def add_wallet
-    self.wallet = 0 
+    self.wallet = 10000 
   end 
 
   def create_wish_list

@@ -590,6 +590,17 @@ body{
 .transfer-box-5{
   width: 30%;
 }
+.navbar-flash-message{
+margin-top: 13px;
+color: #fff;
 
+}
 
+.sign-in-tabs{
+  border: 1px solid #d6d6d6;
+  border-radius: 4px;
+}
+#signup-form button{
+  width: 100%;
+}
 

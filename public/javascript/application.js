@@ -447,8 +447,15 @@ jQuery(document).ready(function($) {
             if(data.message != null){
               alert(data.message);
             }
+            if(data.message == "Please Login or register to proceed."){
+              // window.location.href = "/login";
+              popup.close();
+              window.location.replace("/login");
+            }
+            else{
             setTimeout(function(){console.log("closing popup");popup.close();}, 500);
             location.reload();
+            }
           },
           error: function(){
             popup_div.find('#popup-message').html("<span style=\"color: red;\">Failed to add to trade list.</span>");
@@ -521,11 +528,15 @@ jQuery(document).ready(function($) {
             if(data.message == "You are out of money"){
               alert(data.message);
             }
-            // if(data.message != null){
-            //   alert(data.message);
-            // }
-            setTimeout(function(){console.log("closing popup");popup.close();}, 1000);
-            location.reload();
+
+            if(data.message == "Please Login or register to proceed."){
+              alert(data.message);
+              popup.close();
+              window.location.replace("/login");
+            }else{
+              setTimeout(function(){console.log("closing popup");popup.close();}, 1000);
+              location.reload();
+            }
           },
           error: function(){
             // popup_div.find('#popup-message').html("<span style=\"color: red;\">Failed to add to trade list.</span>");
@@ -552,11 +563,15 @@ jQuery(document).ready(function($) {
             console.log(data);
             // console.log("added to trade list");
             popup_div.find('#popup-message').html("<span style=\"color: green;\">"+ data.message +".</span>");
-            // if(data.message != null){
-            //   alert(data.message);
-            // }
-            setTimeout(function(){console.log("closing popup");popup.close();}, 500);
-            location.reload();
+            
+            if(data.message == "Please Login or register to proceed."){
+              alert(data.message);
+              popup.close();
+              window.location.replace("/login");
+            }else{
+              setTimeout(function(){console.log("closing popup");popup.close();}, 500);
+              location.reload();
+            }
           },
           error: function(){
             // popup_div.find('#popup-message').html("<span style=\"color: red;\">Failed to add to trade list.</span>");
