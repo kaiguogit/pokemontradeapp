@@ -17,7 +17,7 @@ end
  
 helpers do 
   def loggedin?
-    session[:user_id] && !guest?
+    current_user && !guest?
   end
 
   def guest?
