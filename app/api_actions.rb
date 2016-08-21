@@ -16,6 +16,12 @@ namespace '/api' do
     end
 
     post '/wishlist' do
+           if loggedin?
+          return true
+        else
+          flash[:notice] = "Please Login or register to proceed."
+          redirect :'/login'
+        end
       user = User.find(params[:user_id])
       species_array = user.user_wish_list.pokemons.map{|p|p.species.id.to_s}
       species_id = params[:species_id]
@@ -30,6 +36,7 @@ namespace '/api' do
     end
 
     post '/pokemons' do
+
       @new_pokemon = Pokemon.new(
         user: User.find(params[:user_id]),
         species: Species.find(params[:species_id]), 
@@ -66,52 +73,87 @@ namespace '/api' do
     end
 
     post '/listings' do
-      user = User.find(params[:user_id])
-      if user.listings.select{|l|l.pokemon.id.to_s == params[:pokemon_id]}.empty?
-        listing = Listing.new()
-        listing.pokemon = Pokemon.find(params[:pokemon_id])
-        listing.wishlist = Wishlist.new()
-        listing.user = user
-        if params[:wish_list] && params[:wish_list].is_a?(Array)
-          params[:wish_list].each do |p_id|
-            listing.wishlist.pokemons << Pokemon.create(species: Species.find(p_id))
+      if loggedin?
+        user = User.find(params[:user_id])
+        if user.listings.select{|l|l.pokemon.id.to_s == params[:pokemon_id]}.empty?
+          listing = Listing.new()
+          listing.pokemon = Pokemon.find(params[:pokemon_id])
+          listing.wishlist = Wishlist.new()
+          listing.user = user
+          if params[:wish_list] && params[:wish_list].is_a?(Array)
+            params[:wish_list].each do |p_id|
+              listing.wishlist.pokemons << Pokemon.create(species: Species.find(p_id))
+            end
           end
-        end
 
-        listing.price = params[:price] || "0"
-        if listing.save
-          puts "successfully saved listing"
-          json listing.attributes
+          listing.price = params[:price] || "0"
+          if listing.save
+            puts "successfully saved listing"
+            json listing.attributes
+          else
+            puts "failed to save listing"
+            json({message: "failed to save listing"})
+          end
         else
-          puts "failed to save listing"
-          json({message: "failed to save listing"})
+          json({message: "This pokemon is already listed in trade listing"})
         end
       else
-        json({message: "This pokemon is already listed in trade listing"})
+        flash[:notice] = "Please Login or register to proceed."
+        json({message: "Please Login or register to proceed."})
       end
     end
 
-    delete '/listings' do
+    delete '/listings'do
       Listing.destroy(params[:listing_id])
       user = User.find(params[:user_id])
       listings = user.listings.map{|l|l.id.to_s}
       json listings
     end
 
-    post '/checkout' do
-      listing = Listing.find(params[:listing_id])
-      seller = listing.user 
-      seller_pokemon = listing.pokemon
-      buyer = User.find(params[:buyer_id])
-      price = listing.price
-      # buyer_pokemon = Pokemon.find(params[:buyer_pokemon_id])
+    post '/checkout'do
+      if loggedin?
+        listing = Listing.find(params[:listing_id])
+        seller = listing.user 
+        seller_pokemon = listing.pokemon
+        buyer = User.find(params[:buyer_id])
+        price = listing.price
+        # buyer_pokemon = Pokemon.find(params[:buyer_pokemon_id])
 
 
-      if buyer.wallet >= price
-        buyer.wallet -= price
-        buyer.save
-        seller.wallet += price
-        seller.save
+        if buyer.wallet >= price
+          buyer.wallet -= price
+          buyer.save
+          seller.wallet += price
+          seller.save
+          seller_pokemon.user = buyer 
+          seller_pokemon.save
+          # buyer_pokemon.user = seller
+          listing.status = 'completed' 
+          listing.save
+          result = listing.attributes
+          result["message"]="Success"
+          json result
+        else #transaction failed
+          # do something
+          result = {}
+          result["message"]="You are out of money"
+          json result
+        end
+      else
+        flash[:notice] = "Please Login or register to proceed."
+        json({message: "Please Login or register to proceed."})
+      end
+    end
+
+    post '/checkout_with_pokemon' do
+      if loggedin?
+        listing = Listing.find(params[:listing_id])
+        seller = listing.user 
+        seller_pokemon = listing.pokemon
+        buyer = User.find(params[:buyer_id])
+        buyer_pokemon = Pokemon.find(params[:buyer_pokemon_id])
+        buyer_pokemon.user = seller
+        buyer_pokemon.save
         seller_pokemon.user = buyer 
         seller_pokemon.save
         # buyer_pokemon.user = seller
@@ -120,31 +162,10 @@ namespace '/api' do
         result = listing.attributes
         result["message"]="Success"
         json result
-      else #transaction failed
-        # do something
-        result = {}
-        result["message"]="You are out of money"
-        json result
+      else
+        flash[:notice] = "Please Login or register to proceed."
+        json({message: "Please Login or register to proceed."})
       end
-    end
-
-    post '/checkout_with_pokemon' do
-      listing = Listing.find(params[:listing_id])
-      seller = listing.user 
-      seller_pokemon = listing.pokemon
-      buyer = User.find(params[:buyer_id])
-      buyer_pokemon = Pokemon.find(params[:buyer_pokemon_id])
-      buyer_pokemon.user = seller
-      buyer_pokemon.save
-      seller_pokemon.user = buyer 
-      seller_pokemon.save
-      # buyer_pokemon.user = seller
-      listing.status = 'completed' 
-      listing.save
-      result = listing.attributes
-      result["message"]="Success"
-      json result
-    
     end
   end
 

@@ -1,36 +1,42 @@
 # Homepage (Root path)
 require 'json'
+
 before do
-  if loggedin?
+  if loggedin? || guest?
     @user = User.find(session[:user_id])
   else
-    @user = User.new
-    @user.cart = Cart.new
-    @user.user_wish_list = UserWishList.new 
-    session[:user_id] = @user_id
+    @user = User.create(guest: true)
+    session[:user_id] = @user.id
   end
 
-  
-  pass if request.path_info == '/'
-  pass if request.path_info == '/login'
-  pass if request.path_info == '/register'
-
-
-
-  restrict_access
+  # pass if request.path_info == '/'
+  # pass if request.path_info == '/login'
+  # pass if request.path_info == '/register'
 
 end
-
+ 
 helpers do 
   def loggedin?
-    session[:user_id]
+    session[:user_id] && !guest?
   end
 
-  def restrict_access
-    unless loggedin?
-      flash[:notice] = "Please Login or register to proceed."
-      # redirect :'/#intro-text'
-      redirect :'/login'
+  def guest?
+    session[:user_id] != nil && User.find(session[:user_id]).guest == true
+  end
+
+  # def restrict_access
+  #   unless loggedin?
+  #     flash[:notice] = "Please Login or register to proceed."
+  #     # redirect :'/#intro-text'
+  #     redirect :'/login'
+  #   end
+  # end
+
+  def current_user
+    begin 
+      User.find(session[:user_id])
+    rescue ActiveRecord::RecordNotFound
+      nil
     end
   end
 end
@@ -43,11 +49,11 @@ get '/' do
 end
 
 get '/login' do
-  erb :'login'
+  erb :'/login'
 end
 
 get '/register' do
-  erb :'register'
+  erb :'/register'
 end
 # User log in. starts user session. 
 
@@ -158,14 +164,25 @@ end
 
 post '/register' do
   if params[:password_confirm] == params[:password]
-    @user = User.create(username: params[:username], email: params[:email])
-    @user.password = params[:password]
-    @user.save
-    session[:user_id] = @user.id
-    redirect :'/pokedex#pokedex'
+    if current_user && current_user.guest == true
+      @user = current_user
+      @user.username = params[:username]
+      @user.email = params[:email]
+      @user.password = params[:password]
+      @user.guest = false
+      @user.save
+      session[:user_id] = @user.id
+      redirect :'/pokedex#pokedex'
+    else
+      @user = User.create(username: params[:username], email: params[:email])
+      @user.password = params[:password]
+      @user.save
+      session[:user_id] = @user.id
+      redirect :'/pokedex#pokedex'
+    end
   else
     flash[:notice] == "Password confirmation does not match the first password entered."
-    redirect :'/#signup-form'
+    redirect :'/register'
   end
 end
 # post '/checkout' do
