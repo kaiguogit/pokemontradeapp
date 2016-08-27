@@ -14,4 +14,4 @@ Search other people's trade listing.
 Make trade with pokemon or money.
 
 ## Check it out
-Visit `http://pokemontradeapp.herokuapp.com/` in your browser
+Visit [pokexchange](http://pokemontradeapp.herokuapp.com/) in your browser
